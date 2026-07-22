@@ -116,7 +116,7 @@
 /* ==========================
  Mobile
 ========================== */
-
+/*
 @media(max-width:768px){
 
 .admin-sidebar{
@@ -136,6 +136,36 @@
 .admin-sidebar.active{
 
     left:0;
+
+}
+
+}*/
+
+/* ==========================
+ Mobile
+========================== */
+
+@media (max-width:768px) {
+
+.admin-sidebar{
+
+    position: fixed;
+
+    top: 0;
+    left: -260px;
+
+    width: 260px;
+    height: 100vh;
+
+    z-index: 1000;
+
+    transition: left .35s ease;
+}
+
+/* React adds this class */
+.admin-sidebar.open{
+
+    left: 0;
 
 }
 
