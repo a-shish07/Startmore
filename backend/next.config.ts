@@ -26,10 +26,12 @@
 // };
 
 // export default nextConfig;
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // PDFKit needs its own runtime files such as Helvetica.afm
+  serverExternalPackages: ["pdfkit"],
+
   async headers() {
     return [
       {
@@ -44,11 +46,13 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET, POST, PUT, DELETE, OPTIONS",
+            value:
+              "GET, POST, PUT, DELETE, OPTIONS",
           },
           {
             key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
+            value:
+              "Content-Type, Authorization, X-User-Id",
           },
         ],
       },

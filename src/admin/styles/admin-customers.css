@@ -1,0 +1,757 @@
+/* ==========================================
+   CUSTOMERS PAGE
+========================================== */
+
+.customers-page {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+  padding: 30px;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.customers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+
+  gap: 20px;
+}
+
+.customers-header h2 {
+  margin: 0;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  color: #222;
+}
+
+.customers-header p {
+  margin: 6px 0 0;
+
+  font-size: 14px;
+
+  color: #777;
+}
+
+
+/* ==========================================
+   ERROR MESSAGE
+========================================== */
+
+.error-message {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 14px 16px;
+
+  margin-bottom: 16px;
+
+  border: 1px solid #ffd5d5;
+
+  border-radius: 7px;
+
+  background: #fff5f5;
+
+  color: #c62828;
+
+  font-size: 13px;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   SEARCH BAR
+========================================== */
+
+.search-bar {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+
+  padding: 12px 15px;
+
+  box-sizing: border-box;
+
+  background: #fff;
+
+  border: 1px solid #e5e5e5;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.search-bar svg {
+  flex-shrink: 0;
+
+  color: #777;
+
+  font-size: 15px;
+}
+
+.search-bar input {
+  width: 100%;
+
+  min-width: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #222;
+
+  font-size: 13px;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+
+/* ==========================================
+   TABLE WRAPPER
+========================================== */
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  background: #fff;
+
+  border: 1px solid #e8e8e8;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.06);
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.table-wrapper table {
+  width: 100%;
+
+  min-width: 950px;
+
+  border-collapse: collapse;
+}
+
+
+/* ==========================================
+   TABLE HEADER
+========================================== */
+
+.table-wrapper th {
+  padding: 14px 15px;
+
+  background: #f5f5f5;
+
+  color: #444;
+
+  text-align: left;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+
+/* ==========================================
+   TABLE DATA
+========================================== */
+
+.table-wrapper td {
+  padding: 14px 15px;
+
+  color: #555;
+
+  font-size: 13px;
+
+  vertical-align: middle;
+
+  border-bottom: 1px solid #eee;
+
+  white-space: nowrap;
+}
+
+
+/* ==========================================
+   TABLE HOVER
+========================================== */
+
+.table-wrapper tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table-wrapper tbody tr:hover {
+  background: #fafafa;
+}
+
+.table-wrapper tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* ==========================================
+   CUSTOMER CELL
+========================================== */
+
+.customer-cell {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  min-width: 170px;
+}
+
+
+/* ==========================================
+   CUSTOMER AVATAR
+========================================== */
+
+.customer-avatar {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f1f1f1;
+
+  border: 1px solid #ddd;
+
+  color: #333;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+/* ==========================================
+   CUSTOMER NAME
+========================================== */
+
+.customer-cell strong {
+  color: #222;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   CUSTOMER EMAIL
+========================================== */
+
+.table-wrapper td:nth-child(3) {
+  color: #666;
+}
+
+
+/* ==========================================
+   ORDER COUNT
+========================================== */
+
+.order-count {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 28px;
+
+  height: 26px;
+
+  padding: 0 8px;
+
+  box-sizing: border-box;
+
+  border-radius: 15px;
+
+  background: #f1f1f1;
+
+  color: #444;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   TOTAL SPENT
+========================================== */
+
+.table-wrapper td:nth-child(5) {
+  color: #222;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   VIEW BUTTON
+========================================== */
+
+.view-btn {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 1px solid #ddd;
+
+  border-radius: 6px;
+
+  background: #f5f5f5;
+
+  color: #555;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #111;
+
+  border-color: #111;
+
+  color: #fff;
+}
+
+
+/* ==========================================
+   EMPTY
+========================================== */
+
+.empty {
+  padding: 60px 20px;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.page-loading {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 60px 20px;
+
+  text-align: center;
+
+  color: #666;
+
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   MOBILE CARDS
+========================================== */
+
+.mobile-cards {
+  display: none;
+
+  width: 100%;
+}
+
+
+/* ==========================================
+   MOBILE CARD
+========================================== */
+
+.mobile-card {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-bottom: 14px;
+
+  padding: 16px;
+
+  background: #fff;
+
+  border: 1px solid #e8e8e8;
+
+  border-radius: 9px;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ==========================================
+   MOBILE CARD HEADER
+========================================== */
+
+.mobile-card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding-bottom: 14px;
+
+  margin-bottom: 14px;
+
+  border-bottom: 1px solid #eee;
+}
+
+
+/* ==========================================
+   MOBILE CUSTOMER
+========================================== */
+
+.mobile-card-header .customer-cell {
+  min-width: 0;
+
+  flex: 1;
+}
+
+
+/* ==========================================
+   MOBILE CUSTOMER NAME
+========================================== */
+
+.mobile-card-header h3 {
+  margin: 0;
+
+  color: #222;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  word-break: break-word;
+}
+
+
+/* ==========================================
+   CUSTOMER ID
+========================================== */
+
+.mobile-card-header span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   MOBILE CONTENT
+========================================== */
+
+.mobile-content {
+  width: 100%;
+}
+
+.mobile-content p {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin: 9px 0;
+
+  color: #666;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.mobile-content p strong {
+  flex-shrink: 0;
+
+  color: #333;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   MOBILE VIEW BUTTON
+========================================== */
+
+.mobile-card-header .view-btn {
+  flex-shrink: 0;
+
+  width: 36px;
+
+  height: 36px;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+  .customers-page {
+    padding: 20px;
+  }
+
+  .customers-header h2 {
+    font-size: 24px;
+  }
+
+  .customers-header p {
+    font-size: 13px;
+  }
+
+  .table-wrapper table {
+    min-width: 900px;
+  }
+
+  .table-wrapper th,
+  .table-wrapper td {
+    padding: 12px;
+  }
+
+}
+
+
+/* ==========================================
+   IPAD / SMALL TABLET
+========================================== */
+
+@media (max-width: 768px) {
+
+  .customers-page {
+    padding: 18px;
+  }
+
+  .customers-header h2 {
+    font-size: 23px;
+  }
+
+  .search-bar {
+    margin-bottom: 15px;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+
+  .customers-page {
+    padding: 14px;
+  }
+
+
+  /* HEADER */
+
+  .customers-header {
+    margin-bottom: 18px;
+
+    align-items: flex-start;
+  }
+
+  .customers-header h2 {
+    font-size: 22px;
+  }
+
+  .customers-header p {
+    margin-top: 4px;
+
+    font-size: 12px;
+  }
+
+
+  /* SEARCH */
+
+  .search-bar {
+    padding: 11px 13px;
+
+    border-radius: 7px;
+  }
+
+  .search-bar input {
+    font-size: 12px;
+  }
+
+
+  /* HIDE TABLE */
+
+  .table-wrapper {
+    display: none;
+  }
+
+
+  /* SHOW CARDS */
+
+  .mobile-cards {
+    display: block;
+  }
+
+
+  /* ERROR */
+
+  .error-message {
+    font-size: 12px;
+
+    padding: 12px;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 450px) {
+
+  .customers-page {
+    padding: 12px;
+  }
+
+  .customers-header h2 {
+    font-size: 20px;
+  }
+
+  .customers-header p {
+    font-size: 11px;
+  }
+
+  .mobile-card {
+    padding: 14px;
+
+    border-radius: 8px;
+  }
+
+  .mobile-card-header {
+    padding-bottom: 12px;
+
+    margin-bottom: 12px;
+  }
+
+  .customer-avatar {
+    width: 32px;
+    height: 32px;
+
+    font-size: 11px;
+  }
+
+  .mobile-card-header h3 {
+    font-size: 15px;
+  }
+
+  .mobile-content p {
+    font-size: 11px;
+
+    gap: 10px;
+  }
+
+  .mobile-card-header .view-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+}
+
+
+/* ==========================================
+   VERY SMALL MOBILE
+========================================== */
+
+@media (max-width: 320px) {
+
+  .customers-page {
+    padding: 10px;
+  }
+
+  .mobile-card {
+    padding: 12px;
+  }
+
+  .mobile-content p {
+    flex-direction: column;
+
+    gap: 2px;
+  }
+
+}

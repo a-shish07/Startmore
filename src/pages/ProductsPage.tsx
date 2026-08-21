@@ -98,14 +98,22 @@ const fetchSizes = async () => {
 const fetchProducts = async () => {
   try {
     const response = await fetch(`${API_URL}/api/client/products`);
-    const data = await response.json();
+
+    console.log("Status:", response.status);
+    console.log("URL:", `${API_URL}/api/client/products`);
+
+    const text = await response.text();
+
+    console.log("Response:", text);
+
+    const data = JSON.parse(text);
 
     if (data.success) {
       setProducts(data.products);
-      console.log("Products:", data.products);
+      console.log(data.products);
     }
   } catch (error) {
-    console.error(error);
+    console.error("Products Error:", error);
   }
 };
 
@@ -148,43 +156,54 @@ const catCount = (cat: string) => {
     return () => window.removeEventListener('set-category', handleCategory);
   }, []);
 
-  // const filtered = products
-  //   .filter(p => {
-  //     let match = true;
-  //     if (selectedShape !== "All Shapes") {
-  //       match = p.category === "Press-On Nails" && p.sizes.includes(selectedShape);
-  //     }
-  //     if (!match) return false;
 
-  //     if (selectedCat !== "All") {
-  //       match = p.category === selectedCat;
-  //     }
-  //     return match;
-  //   })
-  //   .filter(p => p.price <= priceRange)
-  //   .filter(p => {
-  //     if (!filter) return true;
-  //     if (filter === 'new') return p.badge === 'new';
-  //     if (filter === 'sale') return p.badge === 'sale';
-  //     if (filter === 'best') return p.featured;
-  //     return true;
-  //   })
-  //   .filter(p => {
-  //     if (availFilter === "in") return p.inStock !== false;
-  //     if (availFilter === "out") return p.inStock === false;
-  //     return true;
-  //   })
-  //   .filter(p => {
-  //     if (selectedSizes.length === 0) return true;
-  //     return selectedSizes.some(sz => p.sizes.includes(sz));
-  //   })
-  //   .sort((a, b) => {
-  //     if (sort === "price-asc") return a.price - b.price;
-  //     if (sort === "price-desc") return b.price - a.price;
-  //     if (sort === "rating") return b.rating - a.rating;
-  //     if (sort === "featured") return Number(b.featured) - Number(a.featured);
-  //     return 0;
-  //   });
+// const filtered = products
+//   .filter((p: any) => {
+//     if (
+//       selectedShape !== "All Shapes" &&
+//       p.shape_name !== selectedShape
+//     ) {
+//       return false;
+//     }
+
+//     if (
+//       selectedCat !== "All" &&
+//       p.category_name !== selectedCat
+//     ) {
+//       return false;
+//     }
+
+//     return true;
+//   })
+//   .filter((p: any) => Number(p.price) <= priceRange)
+//   .filter((p: any) => {
+//     if (!filter) return true;
+
+//     if (filter === "new") return p.new_arrival;
+//     if (filter === "sale") return p.on_sale;
+//     if (filter === "best") return p.best_seller;
+
+//     return true;
+//   })
+//   .filter((p: any) => {
+//     if (availFilter === "in") return p.stock > 0;
+//     if (availFilter === "out") return p.stock <= 0;
+
+//     return true;
+//   })
+//   .sort((a: any, b: any) => {
+//     if (sort === "price-asc")
+//       return Number(a.price) - Number(b.price);
+
+//     if (sort === "price-desc")
+//       return Number(b.price) - Number(a.price);
+
+//     if (sort === "featured")
+//       return Number(b.featured) - Number(a.featured);
+
+//     return 0;
+//   });
+
 const filtered = products
   .filter((p: any) => {
     if (
@@ -214,26 +233,44 @@ const filtered = products
     return true;
   })
   .filter((p: any) => {
-    if (availFilter === "in") return p.stock > 0;
-    if (availFilter === "out") return p.stock <= 0;
+    if (availFilter === "in") {
+      return Number(p.stock) > 0;
+    }
+
+    if (availFilter === "out") {
+      return Number(p.stock) <= 0;
+    }
 
     return true;
   })
   .sort((a: any, b: any) => {
-    if (sort === "price-asc")
+    if (sort === "price-asc") {
       return Number(a.price) - Number(b.price);
+    }
 
-    if (sort === "price-desc")
+    if (sort === "price-desc") {
       return Number(b.price) - Number(a.price);
+    }
 
-    if (sort === "featured")
+    if (sort === "featured") {
       return Number(b.featured) - Number(a.featured);
+    }
 
     return 0;
   });
 
-  const inStockCount = 19;
-  const outStockCount = 3;
+/* ==========================================
+   DYNAMIC AVAILABILITY COUNTS
+========================================== */
+
+const inStockCount = products.filter(
+  (p: any) => Number(p.stock) > 0
+).length;
+
+const outStockCount = products.filter(
+  (p: any) => Number(p.stock) <= 0
+).length;
+  
 
   const toggleSize = (sz: string) => {
     setSelectedSizes(prev =>

@@ -1,555 +1,1030 @@
-/* ==========================================
-   SHAPE PAGE
-========================================== */
+/* =========================================================
+   SR ARTÉMORE
+   SHAPE MANAGEMENT PAGE
+========================================================= */
 
-.shape-page,
-.form-page {
-  padding: 30px;
-  background: #f8f9fb;
-  min-height: 100vh;
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.shape-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px 32px 40px;
+  background: #faf7f1;
+  box-sizing: border-box;
 }
 
-/* ==========================================
+
+/* =========================================================
    PAGE HEADER
-========================================== */
+========================================================= */
 
-.page-header {
+.shape-header {
+  width: 100%;
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 25px;
+  margin-bottom: 28px;
 }
 
-.page-header h2 {
+.shape-header-content {
+  min-width: 0;
+}
+
+.shape-header h2 {
   margin: 0;
-  color: #222;
-  font-size: 28px;
-  font-weight: 700;
+  color: #241b17;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.5px;
 }
 
-.page-header p {
-  margin-top: 5px;
-  color: #777;
+.shape-header p {
+  margin: 8px 0 0;
+  color: #9a8b82;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   ADD SHAPE BUTTON
+========================================================= */
+
+.shape-add-btn {
+  min-height: 52px;
+  padding: 0 25px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: none;
+  border-radius: 13px;
+
+  background: #ad4055;
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 22px rgba(173, 64, 85, 0.18);
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.shape-add-btn:hover {
+  background: #96364a;
+  transform: translateY(-1px);
+  box-shadow: 0 13px 26px rgba(173, 64, 85, 0.24);
+}
+
+.shape-add-btn:active {
+  transform: translateY(0);
+}
+
+.shape-add-btn svg {
   font-size: 14px;
 }
 
-/* ==========================================
-   BUTTONS
-========================================== */
 
-.add-btn,
-.save-btn,
-.cancel-btn,
-.edit-btn,
-.delete-btn {
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.shape-message {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 18px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  box-sizing: border-box;
+}
+
+.shape-message.success {
+  background: #e7f2ec;
+  border: 1px solid #c9dfd1;
+  color: #477b62;
+}
+
+.shape-message.error {
+  background: #f9e8e9;
+  border: 1px solid #ecc9cc;
+  color: #a53e4d;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.shape-search-wrapper {
+  width: min(100%, 430px);
+  height: 48px;
+
+  margin-bottom: 22px;
+
+  display: flex;
+  align-items: center;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd5;
+  border-radius: 12px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.shape-search-wrapper:focus-within {
+  border-color: #c28b76;
+  box-shadow: 0 0 0 3px rgba(194, 139, 118, 0.12);
+}
+
+.shape-search-icon {
+  margin-left: 16px;
+  color: #a5968d;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.shape-search-input {
+  width: 100%;
+  height: 100%;
+
+  padding: 0 15px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #352923;
+
+  font-size: 14px;
+}
+
+.shape-search-input::placeholder {
+  color: #aa9b91;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.shape-table-card {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd5;
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 8px 24px rgba(65, 43, 31, 0.055);
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.shape-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.shape-table {
+  width: 100%;
+  min-width: 760px;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.shape-table thead {
+  background: #ffffff;
+}
+
+.shape-table th {
+  height: 52px;
+
+  padding: 0 24px;
+
+  border-bottom: 1px solid #eadfd5;
+
+  color: #9b8b82;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  text-align: left;
+  white-space: nowrap;
+}
+
+
+/* COLUMN WIDTHS */
+
+.shape-table .shape-column {
+  width: 48%;
+}
+
+.shape-table .products-column {
+  width: 22%;
+}
+
+.shape-table .status-column {
+  width: 18%;
+}
+
+.shape-table .actions-column {
+  width: 12%;
+  text-align: center;
+}
+
+
+/* =========================================================
+   TABLE ROW
+========================================================= */
+
+.shape-row {
+  height: 105px;
+
+  border-bottom: 1px solid #eee4dc;
+
+  transition: background 0.2s ease;
+}
+
+.shape-row:last-child {
+  border-bottom: none;
+}
+
+.shape-row:hover {
+  background: #fffaf6;
+}
+
+
+/* =========================================================
+   TABLE CELLS
+========================================================= */
+
+.shape-table td {
+  padding: 16px 24px;
+
+  color: #30251f;
+
+  font-size: 16px;
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   SHAPE NAME
+========================================================= */
+
+.shape-name-cell {
+  width: 48%;
+}
+
+.shape-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   SHAPE ICON / IMAGE
+========================================================= */
+
+.shape-icon-box {
+  width: 66px;
+  height: 66px;
+
+  flex: 0 0 66px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 15px;
+
+  background: #f7e8e9;
+
+  color: #a94055;
+}
+
+.shape-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.shape-default-icon {
+  color: #a94055;
+  font-size: 25px;
+}
+
+
+/* =========================================================
+   SHAPE NAME CONTENT
+========================================================= */
+
+.shape-name-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shape-name-content strong {
+  color: #1e1713;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shape-name-content span {
+  color: #a18f85;
+
+  font-size: 13px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.products-cell {
+  color: #3e312b !important;
+  font-size: 16px !important;
+}
+
+.products-cell::first-letter {
+  color: inherit;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-cell {
+  white-space: nowrap;
+}
+
+.shape-status {
+  min-width: 84px;
+
+  padding: 7px 13px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  text-decoration: none;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
+
+  border-radius: 30px;
+
+  font-size: 13px;
   font-weight: 600;
 }
 
-.add-btn {
-  background: #0d6efd;
-  color: #fff;
-  padding: 12px 18px;
+.shape-status.active {
+  background: #e6f1eb;
+  color: #4c8069;
 }
 
-.add-btn:hover {
-  background: #0b5ed7;
+.shape-status.inactive {
+  background: #efebe8;
+  color: #92857d;
 }
 
-.save-btn {
-  background: #198754;
-  color: #fff;
-  padding: 12px 20px;
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  flex: 0 0 8px;
+
+  border-radius: 50%;
+
+  background: currentColor;
 }
 
-.save-btn:hover {
-  background: #157347;
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions-cell {
+  text-align: center;
 }
 
-.save-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.cancel-btn {
-  background: #6c757d;
-  color: #fff;
-  padding: 12px 20px;
-}
-
-.cancel-btn:hover {
-  background: #5c636a;
-}
-
-.edit-btn {
-  width: 38px;
-  height: 38px;
-  background: #ffc107;
-  color: #222;
-}
-
-.edit-btn:hover {
-  background: #e0a800;
-}
-
-.delete-btn {
-  width: 38px;
-  height: 38px;
-  background: #dc3545;
-  color: #fff;
-}
-
-.delete-btn:hover {
-  background: #bb2d3b;
-}
-
-/* ==========================================
-   ALERTS
-========================================== */
-
-.success-message,
-.error-message {
-  padding: 14px 18px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.success-message {
-  background: #d1e7dd;
-  color: #0f5132;
-  border: 1px solid #badbcc;
-}
-
-.error-message {
-  background: #f8d7da;
-  color: #842029;
-  border: 1px solid #f5c2c7;
-}
-
-/* ==========================================
-   LOADING
-========================================== */
-
-.page-loading {
-  min-height: 400px;
+.shape-actions {
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: #666;
+  justify-content: center;
+  gap: 9px;
 }
 
-/* ==========================================
-   FORM
-========================================== */
+.shape-action {
+  width: 44px;
+  height: 44px;
 
-.admin-form {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #eadfd5;
+  border-radius: 11px;
+
   background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.form-group {
+.shape-action svg {
+  font-size: 16px;
+}
+
+.shape-action.edit {
+  color: #594b43;
+}
+
+.shape-action.edit:hover {
+  background: #f8eeea;
+  border-color: #d7b9a9;
+  color: #9e4356;
+  transform: translateY(-1px);
+}
+
+.shape-action.delete {
+  color: #594b43;
+}
+
+.shape-action.delete:hover {
+  background: #f9e8e9;
+  border-color: #e3bfc4;
+  color: #b33e50;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.shape-empty {
+  height: 280px;
+
+  text-align: center !important;
+
+  color: #9d8f87 !important;
+}
+
+.shape-empty-icon {
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #f7e8e9;
+
+  color: #b66a7b;
+
+  font-size: 22px;
+}
+
+.shape-empty h3 {
+  margin: 0 0 5px;
+
+  color: #4a3931;
+
+  font-size: 17px;
+}
+
+.shape-empty p {
+  margin: 0;
+
+  color: #a6968c;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.shape-loading {
+  min-height: 400px;
+
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-  font-size: 15px;
-  outline: none;
-  transition: all 0.3s ease;
-  background: #fff;
-  box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
-}
-
-.form-group input[readonly] {
-  background: #f5f5f5;
-  cursor: not-allowed;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-/* ==========================================
-   FILE INPUT
-========================================== */
-
-.form-group input[type="file"] {
-  padding: 10px;
-  background: #fafafa;
-  cursor: pointer;
-}
-
-.form-group input[type="file"]::-webkit-file-upload-button {
-  background: #0d6efd;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-right: 12px;
-}
-
-.form-group input[type="file"]::-webkit-file-upload-button:hover {
-  background: #0b5ed7;
-}
-
-/* ==========================================
-   IMAGE PREVIEW
-========================================== */
-
-.image-preview {
-  margin: 20px 0;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.image-preview img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  background: #fff;
-  padding: 5px;
-}
-
-/* ==========================================
-   FORM BUTTONS
-========================================== */
-
-.form-buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 25px;
-  flex-wrap: wrap;
-}
-
-/* ==========================================
-   SEARCH BAR
-========================================== */
-
-.search-bar {
-  margin: 20px 0;
-  display: flex;
   align-items: center;
-  gap: 10px;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 12px 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
+  justify-content: center;
 
-.search-bar svg {
-  color: #666;
-  font-size: 18px;
-}
+  gap: 14px;
 
-.search-bar input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
+  color: #806f65;
+
   font-size: 15px;
 }
 
-/* ==========================================
-   TABLE WRAPPER
-========================================== */
+.loading-spinner {
+  width: 30px;
+  height: 30px;
 
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 3px solid #eadfd5;
+  border-top-color: #b4495d;
+
+  border-radius: 50%;
+
+  animation: shapeSpinner 0.8s linear infinite;
 }
 
-.table-wrapper table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 900px;
+@keyframes shapeSpinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.table-wrapper thead {
-  background: #0d6efd;
-}
 
-.table-wrapper thead th {
-  color: #ffffff;
-  padding: 15px;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 600;
-}
+/* =========================================================
+   MOBILE LIST
+========================================================= */
 
-.table-wrapper tbody tr {
-  border-bottom: 1px solid #eeeeee;
-  transition: background 0.3s;
-}
-
-.table-wrapper tbody tr:hover {
-  background: #f8f9fa;
-}
-
-.table-wrapper tbody td {
-  padding: 14px;
-  font-size: 14px;
-  color: #444;
-  vertical-align: middle;
-}
-
-/* ==========================================
-   TABLE IMAGE
-========================================== */
-
-.table-image {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  object-fit: cover;
-  border: 1px solid #ddd;
-  background: #fff;
-}
-
-.no-image {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  background: #f3f3f3;
-  color: #888;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  border: 1px dashed #ccc;
-}
-
-/* ==========================================
-   STATUS BADGES
-========================================== */
-
-.badge {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.badge.active {
-  background: #d1e7dd;
-  color: #0f5132;
-}
-
-.badge.inactive {
-  background: #f8d7da;
-  color: #842029;
-}
-
-/* ==========================================
-   ACTION BUTTONS
-========================================== */
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.action-buttons .edit-btn,
-.action-buttons .delete-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ==========================================
-   EMPTY STATE
-========================================== */
-
-.empty {
-  text-align: center;
-  padding: 40px 20px;
-  color: #777;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-/* ==========================================
-   MOBILE CARDS
-========================================== */
-
-.mobile-cards {
+.shape-mobile-list {
   display: none;
-  margin-top: 20px;
 }
 
-.mobile-card {
+
+/* =========================================================
+   MOBILE CARD
+========================================================= */
+
+.shape-mobile-card {
   background: #ffffff;
-  border-radius: 12px;
+
+  border: 1px solid #eadfd5;
+  border-radius: 14px;
+
   padding: 18px;
-  margin-bottom: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+  margin-bottom: 14px;
+
+  box-shadow:
+    0 6px 18px rgba(65, 43, 31, 0.055);
 }
 
-.mobile-image {
+
+/* =========================================================
+   MOBILE TOP
+========================================================= */
+
+.shape-mobile-top {
   display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
+  align-items: center;
+
+  gap: 14px;
 }
 
-.mobile-image img {
-  width: 130px;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid #ddd;
+.shape-mobile-top .shape-icon-box {
+  width: 58px;
+  height: 58px;
+
+  flex-basis: 58px;
+
+  border-radius: 13px;
 }
 
-.mobile-content h3 {
-  margin: 0 0 12px;
-  color: #222;
-  font-size: 20px;
+
+/* =========================================================
+   MOBILE DETAILS
+========================================================= */
+
+.shape-mobile-details {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 20px;
+
+  padding-top: 17px;
+
+  border-top: 1px solid #eee4dc;
 }
 
-.mobile-content p {
-  margin: 8px 0;
-  color: #555;
+.mobile-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-detail > span:first-child {
+  color: #9b8b82;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.mobile-detail strong {
+  color: #40332c;
+
   font-size: 14px;
 }
 
-.card-actions {
-  display: flex;
-  gap: 12px;
+
+/* =========================================================
+   MOBILE ACTIONS
+========================================================= */
+
+.shape-mobile-actions {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
   margin-top: 18px;
 }
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
+.shape-mobile-action {
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.shape-mobile-action.edit {
+  border: 1px solid #e4d4ca;
+
+  background: #ffffff;
+
+  color: #594b43;
+}
+
+.shape-mobile-action.edit:hover {
+  background: #f8eeea;
+  color: #9e4356;
+}
+
+.shape-mobile-action.delete {
+  border: 1px solid #e6c8cc;
+
+  background: #fff7f7;
+
+  color: #ad4055;
+}
+
+.shape-mobile-action.delete:hover {
+  background: #f9e8e9;
+}
+
+
+/* =========================================================
+   MOBILE EMPTY
+========================================================= */
+
+.shape-mobile-empty {
+  padding: 50px 20px;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd5;
+  border-radius: 14px;
+}
+
+.shape-mobile-empty h3 {
+  margin: 0 0 6px;
+
+  color: #4a3931;
+
+  font-size: 17px;
+}
+
+.shape-mobile-empty p {
+  margin: 0;
+
+  color: #a6968c;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   LARGE LAPTOP
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .shape-page {
+    padding: 25px 26px 35px;
+  }
+
+  .shape-header h2 {
+    font-size: 38px;
+  }
+
+  .shape-table th,
+  .shape-table td {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 992px) {
 
-  .shape-page,
-  .form-page {
-    padding: 20px;
+  .shape-page {
+    padding: 24px 20px 32px;
   }
 
-  .page-header {
-    flex-direction: column;
+  .shape-header {
     align-items: flex-start;
   }
 
-  .page-header h2 {
-    font-size: 24px;
+  .shape-header h2 {
+    font-size: 34px;
   }
 
-  .admin-form {
-    padding: 20px;
+  .shape-header p {
+    font-size: 15px;
+  }
+
+  .shape-add-btn {
+    min-height: 48px;
+    padding: 0 20px;
+  }
+
+  .shape-table {
+    min-width: 700px;
+  }
+
+  .shape-table th,
+  .shape-table td {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .shape-icon-box {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+  }
+
+  .shape-name-wrapper {
+    gap: 13px;
   }
 
 }
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
 
 @media (max-width: 768px) {
 
-  .table-wrapper {
+  .shape-page {
+    padding: 20px 16px 30px;
+  }
+
+  .shape-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+
+    margin-bottom: 20px;
+  }
+
+  .shape-header h2 {
+    font-size: 30px;
+  }
+
+  .shape-header p {
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  .shape-add-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .shape-search-wrapper {
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  /* Hide desktop table */
+  .shape-table-card {
     display: none;
   }
 
-  .mobile-cards {
+  /* Show mobile cards */
+  .shape-mobile-list {
     display: block;
-  }
-
-  .form-buttons {
-    flex-direction: column;
-  }
-
-  .save-btn,
-  .cancel-btn,
-  .add-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .search-bar {
-    padding: 10px 14px;
   }
 
 }
 
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 480px) {
 
-  .shape-page,
-  .form-page {
-    padding: 15px;
+  .shape-page {
+    padding: 17px 13px 25px;
   }
 
-  .page-header h2 {
-    font-size: 22px;
+  .shape-header h2 {
+    font-size: 27px;
   }
 
-  .page-header p {
+  .shape-header p {
     font-size: 13px;
   }
 
-  .mobile-card {
-    padding: 15px;
+  .shape-add-btn {
+    min-height: 46px;
+
+    font-size: 14px;
+
+    border-radius: 11px;
   }
 
-  .mobile-image img {
-    width: 100px;
-    height: 100px;
+  .shape-search-wrapper {
+    height: 45px;
+    border-radius: 10px;
   }
 
-  .mobile-content h3 {
-    font-size: 18px;
-  }
-
-  .mobile-content p {
+  .shape-search-input {
     font-size: 13px;
   }
 
-  .image-preview img {
-    width: 140px;
-    height: 140px;
+  .shape-mobile-card {
+    padding: 15px;
+    border-radius: 13px;
+  }
+
+  .shape-mobile-top {
+    gap: 12px;
+  }
+
+  .shape-mobile-top .shape-icon-box {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+
+  .shape-mobile-top .shape-name-content strong {
+    font-size: 16px;
+  }
+
+  .shape-mobile-top .shape-name-content span {
+    font-size: 12px;
+  }
+
+  .shape-mobile-details {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .shape-mobile-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .shape-page {
+    padding: 14px 10px 22px;
+  }
+
+  .shape-header h2 {
+    font-size: 24px;
+  }
+
+  .shape-mobile-card {
+    padding: 13px;
+  }
+
+  .shape-mobile-top .shape-icon-box {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+  }
+
+  .shape-mobile-top .shape-name-content strong {
+    font-size: 15px;
+  }
+
+  .shape-mobile-action {
+    font-size: 13px;
   }
 
 }

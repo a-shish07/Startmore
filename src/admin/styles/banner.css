@@ -1,525 +1,1337 @@
 /* ==========================================
-   ADD BANNER PAGE
+   BANNER PAGE
+   SR ARTÉMORE ADMIN PANEL
 ========================================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.banner-page {
+  width: 100%;
+  max-width: 100%;
+
+  min-width: 0;
+  min-height: calc(100vh - 72px);
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  font-family: "Inter", sans-serif;
+
+  color: #241c18;
+
+  background: #f5f7fb;
+
+  overflow-x: hidden;
 }
 
-.banner-page{
-    width:100%;
-}
-
-.page-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-}
-
-.page-header h2{
-    font-size:28px;
-    color:#111827;
-    font-weight:700;
-    margin-bottom:6px;
-}
-
-.page-header p{
-    color:#6b7280;
-    font-size:15px;
-}
 
 /* ==========================================
-   FORM
+   PAGE HEADER
 ========================================== */
 
-.banner-form{
-    display:flex;
-    flex-direction:column;
-    gap:25px;
+.banner-page .page-header {
+  width: 100%;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin: 0 0 24px;
+
+  box-sizing: border-box;
 }
 
-.form-card{
-    background:#ffffff;
-    border-radius:14px;
-    padding:25px;
-    border:1px solid #e5e7eb;
-    box-shadow:0 2px 10px rgba(0,0,0,.04);
+.banner-page .page-header > div:first-child {
+  min-width: 0;
 }
 
-.form-card h3{
-    font-size:20px;
-    margin-bottom:20px;
-    color:#111827;
+.banner-page .page-header h2 {
+  margin: 0;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 28px;
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  color: #241c18;
 }
+
+.banner-page .page-header p {
+  margin: 6px 0 0;
+
+  color: #93867b;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
 
 /* ==========================================
-   FORM GROUP
+   ADD BANNER BUTTON
 ========================================== */
 
-.form-group{
-    display:flex;
-    flex-direction:column;
-    margin-bottom:20px;
+.add-banner-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 42px;
+
+  padding: 0 18px;
+
+  flex-shrink: 0;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #b3495a,
+    #8c3a48
+  );
+
+  color: #ffffff;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px -8px
+    rgba(179, 73, 90, 0.55);
+
+  transition:
+    filter 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.form-group:last-child{
-    margin-bottom:0;
+.add-banner-btn:hover {
+  filter: brightness(1.05);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 24px -8px
+    rgba(179, 73, 90, 0.65);
 }
 
-.form-group label{
-    margin-bottom:8px;
-    font-size:14px;
-    font-weight:600;
-    color:#374151;
+.add-banner-btn:active {
+  transform: translateY(0);
 }
 
-.form-group input,
-.form-group textarea{
-    width:100%;
-    border:1px solid #d1d5db;
-    border-radius:10px;
-    padding:12px 15px;
-    font-size:15px;
-    transition:.3s;
-    background:#fff;
+.add-banner-btn svg {
+  width: 14px;
+  height: 14px;
 }
 
-.form-group textarea{
-    resize:vertical;
-    min-height:130px;
-}
-
-.form-group input:focus,
-.form-group textarea:focus{
-    outline:none;
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
-}
 
 /* ==========================================
-   FILE INPUT
+   BANNER GRID
 ========================================== */
 
-input[type=file]{
-    width:100%;
-    padding:12px;
-    border:2px dashed #cbd5e1;
-    border-radius:12px;
-    background:#f8fafc;
-    cursor:pointer;
-    margin-bottom:20px;
+.banner-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+
+  box-sizing: border-box;
 }
 
-input[type=file]:hover{
-    border-color:#2563eb;
-}
 
 /* ==========================================
-   IMAGE PREVIEW
+   BANNER CARD
 ========================================== */
 
-.image-preview{
-    width:100%;
-    height:260px;
-    border:2px dashed #d1d5db;
-    border-radius:12px;
-    overflow:hidden;
-    background:#f8fafc;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.banner-card {
+  width: 100%;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 14px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 1px 2px
+    rgba(36, 28, 24, 0.04),
+
+    0 8px 24px -12px
+    rgba(36, 28, 24, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.image-preview img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.banner-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 2px 4px
+    rgba(36, 28, 24, 0.05),
+
+    0 12px 28px -12px
+    rgba(36, 28, 24, 0.16);
 }
 
-.preview-placeholder{
-    color:#9ca3af;
-    font-size:16px;
-}
 
 /* ==========================================
-   TWO COLUMN
+   BANNER IMAGE
 ========================================== */
 
-.two-column{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
+.banner-image-wrapper {
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1e4e6,
+      #eadfcb
+    );
 }
+
+.banner-image {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.banner-card:hover .banner-image {
+  transform: scale(1.02);
+}
+
 
 /* ==========================================
-   CHECKBOX
+   BANNER CARD BODY
 ========================================== */
 
-.checkbox-group{
-    justify-content:flex-end;
+.banner-card-body {
+  width: 100%;
+
+  padding: 16px 18px 18px;
+
+  box-sizing: border-box;
 }
 
-.checkbox{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    height:48px;
-}
-
-.checkbox input{
-    width:18px;
-    height:18px;
-    cursor:pointer;
-}
-
-.checkbox span{
-    font-size:15px;
-    color:#374151;
-}
 
 /* ==========================================
-   BUTTON
+   BANNER INFO
 ========================================== */
 
-.submit-section{
-    display:flex;
-    justify-content:flex-end;
+.banner-info {
+  min-height: 58px;
+
+  min-width: 0;
 }
 
-.save-btn{
-    min-width:180px;
-    height:48px;
-    border:none;
-    border-radius:10px;
-    background:#2563eb;
-    color:#fff;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
+.banner-info h3 {
+  margin: 0 0 4px;
+
+  color: #241c18;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  overflow-wrap: anywhere;
 }
 
-.save-btn:hover{
-    background:#1d4ed8;
+.banner-info p {
+  margin: 0;
+
+  color: #93867b;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
 }
+
+
+/* ==========================================
+   CARD FOOTER
+========================================== */
+
+.banner-card-footer {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: 14px;
+}
+
+
+/* ==========================================
+   TOGGLE
+========================================== */
+
+.banner-toggle {
+  position: relative;
+
+  width: 38px;
+
+  height: 22px;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background: #eae1d6;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease;
+}
+
+.banner-toggle.on {
+  background: #4c7a63;
+}
+
+.toggle-dot {
+  position: absolute;
+
+  top: 2px;
+
+  left: 2px;
+
+  width: 18px;
+
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 1px 2px
+    rgba(0, 0, 0, 0.20);
+
+  transition:
+    left 0.15s ease;
+}
+
+.banner-toggle.on .toggle-dot {
+  left: 18px;
+}
+
+
+/* ==========================================
+   ACTIONS
+========================================== */
+
+.banner-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+}
+
+.banner-action-btn {
+  width: 42px;
+
+  height: 42px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.banner-action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.banner-action-btn svg {
+  width: 15px;
+
+  height: 15px;
+}
+
+
+/* ==========================================
+   EDIT BUTTON
+========================================== */
+
+.banner-action-btn.edit {
+  color: #4a3f38;
+}
+
+.banner-action-btn.edit:hover {
+  color: #b3495a;
+
+  border-color: #b3495a;
+
+  background: #fff8f8;
+}
+
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.banner-action-btn.delete {
+  color: #4a3f38;
+}
+
+.banner-action-btn.delete:hover {
+  color: #b3483f;
+
+  border-color: #b3483f;
+
+  background: #f6e6e3;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.empty-banner-state {
+  width: 100%;
+
+  min-height: 280px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-direction: column;
+
+  padding: 40px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 14px;
+
+  text-align: center;
+
+  box-shadow:
+    0 1px 2px
+    rgba(36, 28, 24, 0.04),
+
+    0 8px 24px -12px
+    rgba(36, 28, 24, 0.12);
+}
+
+.empty-banner-icon {
+  width: 48px;
+
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 14px;
+
+  border-radius: 12px;
+
+  background: #f6e7e9;
+
+  color: #b3495a;
+}
+
+.empty-banner-state h3 {
+  margin: 0 0 5px;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 18px;
+
+  color: #241c18;
+}
+
+.empty-banner-state p {
+  margin: 0 0 18px;
+
+  color: #93867b;
+
+  font-size: 12px;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.banner-loading {
+  width: 100%;
+
+  min-height: 250px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #93867b;
+
+  font-size: 13px;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.banner-error {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  margin-bottom: 18px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #efd0d0;
+
+  border-radius: 10px;
+
+  background: #fff7f7;
+
+  color: #a33b3b;
+
+  font-size: 13px;
+}
+
 
 /* ==========================================
    TABLET
 ========================================== */
 
-@media(max-width:992px){
+@media (max-width: 1200px) {
 
-.page-header h2{
-    font-size:24px;
-}
+  .banner-page {
+    padding: 24px;
+  }
 
-.form-card{
-    padding:20px;
-}
+  .banner-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
 
-.two-column{
-    grid-template-columns:1fr;
-    gap:0;
-}
-
-.image-preview{
-    height:220px;
-}
+    gap: 18px;
+  }
 
 }
+
+
+/* ==========================================
+   SMALL TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+  .banner-page {
+    padding: 22px;
+  }
+
+  .banner-page .page-header h2 {
+    font-size: 25px;
+  }
+
+  .banner-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
 
 /* ==========================================
    MOBILE
 ========================================== */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
 
-.banner-page{
-    padding:0;
-}
+  .banner-page {
+    min-height: calc(100vh - 64px);
 
-.page-header{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:8px;
-    margin-bottom:20px;
-}
+    padding: 18px 16px 24px;
+  }
 
-.page-header h2{
-    font-size:22px;
-}
+  .banner-page .page-header {
+    flex-direction: column;
 
-.page-header p{
-    font-size:14px;
-}
+    align-items: stretch;
 
-.form-card{
-    padding:18px;
-    border-radius:12px;
-}
+    gap: 14px;
 
-.form-card h3{
-    font-size:18px;
-}
+    margin-bottom: 18px;
+  }
 
-.form-group label{
-    font-size:13px;
-}
+  .banner-page .page-header h2 {
+    font-size: 23px;
+  }
 
-.form-group input,
-.form-group textarea{
-    font-size:14px;
-    padding:11px 14px;
-}
+  .banner-page .page-header p {
+    font-size: 12px;
+  }
 
-.image-preview{
-    height:180px;
-}
+  .add-banner-btn {
+    width: 100%;
 
-.submit-section{
-    width:100%;
-}
+    min-height: 42px;
+  }
 
-.save-btn{
-    width:100%;
-}
+  .banner-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .banner-card {
+    border-radius: 14px;
+  }
+
+  .banner-card-body {
+    padding: 15px 16px 16px;
+  }
 
 }
+
 
 /* ==========================================
    SMALL MOBILE
 ========================================== */
 
-@media(max-width:480px){
+@media (max-width: 480px) {
 
-.page-header h2{
-    font-size:20px;
-}
+  .banner-page {
+    padding: 16px 12px 22px;
+  }
 
-.form-card{
-    padding:15px;
-}
+  .banner-page .page-header h2 {
+    font-size: 21px;
+  }
 
-.image-preview{
-    height:160px;
-}
+  .banner-page .page-header p {
+    font-size: 11.5px;
+  }
 
-.form-group input,
-.form-group textarea{
-    font-size:13px;
-}
+  .banner-card-body {
+    padding: 14px 15px 16px;
+  }
 
-.save-btn{
-    height:46px;
-    font-size:14px;
-}
+  .banner-info {
+    min-height: 54px;
+  }
 
-}
+  .banner-info h3 {
+    font-size: 13.5px;
+  }
 
+  .banner-info p {
+    font-size: 11.5px;
+  }
 
+  .banner-action-btn {
+    width: 36px;
 
-/* ==========================================
-   BANNER LIST
-========================================== */
+    height: 36px;
 
-.add-banner-btn{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    border:none;
-    background:#2563eb;
-    color:#fff;
-    padding:12px 20px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:600;
-}
+    border-radius: 9px;
+  }
 
-.add-banner-btn:hover{
-    background:#1d4ed8;
-}
+  .banner-toggle {
+    width: 36px;
 
-.banner-table-card{
-    background:#fff;
-    border-radius:14px;
-    padding:20px;
-    border:1px solid #e5e7eb;
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
+    height: 21px;
+  }
 
-.table-responsive{
-    width:100%;
-    overflow-x:auto;
-}
+  .toggle-dot {
+    width: 17px;
 
-.banner-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:900px;
-}
+    height: 17px;
+  }
 
-.banner-table th{
-    background:#f8fafc;
-    color:#374151;
-    font-size:14px;
-    text-align:left;
-    padding:15px;
-}
-
-.banner-table td{
-    padding:15px;
-    border-top:1px solid #e5e7eb;
-    vertical-align:middle;
-}
-
-.banner-thumbnail{
-    width:100px;
-    height:60px;
-    object-fit:cover;
-    border-radius:8px;
-}
-
-.status-btn{
-    border:none;
-    padding:8px 14px;
-    border-radius:20px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    cursor:pointer;
-    font-size:13px;
-    font-weight:600;
-}
-
-.status-btn.active{
-    background:#dcfce7;
-    color:#15803d;
-}
-
-.status-btn.inactive{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-.action-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.edit-btn,
-.delete-btn{
-    width:38px;
-    height:38px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    color:#fff;
-}
-
-.edit-btn{
-    background:#2563eb;
-}
-
-.delete-btn{
-    background:#ef4444;
-}
-
-.edit-btn:hover{
-    background:#1d4ed8;
-}
-
-.delete-btn:hover{
-    background:#dc2626;
-}
-
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media(max-width:768px){
-
-.add-banner-btn{
-    width:100%;
-    justify-content:center;
-    margin-top:15px;
-}
-
-.page-header{
-    flex-direction:column;
-    align-items:flex-start;
-}
-
-.banner-table-card{
-    padding:15px;
-}
+  .banner-toggle.on .toggle-dot {
+    left: 17px;
+  }
 
 }
 
 
 /* ==========================================
-   EDIT BANNER
+   VERY SMALL MOBILE
 ========================================== */
 
-.submit-section{
-    display:flex;
-    justify-content:flex-end;
-    gap:15px;
-    margin-top:10px;
-}
+@media (max-width: 320px) {
 
-.cancel-btn{
+  .banner-page {
+    padding: 14px 10px 20px;
+  }
 
-    min-width:150px;
+  .banner-page .page-header h2 {
+    font-size: 20px;
+  }
 
-    height:48px;
+  .banner-card-body {
+    padding: 13px;
+  }
 
-    border:1px solid #d1d5db;
-
-    border-radius:10px;
-
-    background:#ffffff;
-
-    color:#374151;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
+  .banner-card-footer {
+    gap: 8px;
+  }
 
 }
 
-.cancel-btn:hover{
 
-    background:#f3f4f6;
+/* =========================================================
+   EDIT BANNER PAGE
+========================================================= */
+
+.loading-box {
+  width: 100%;
+
+  min-height: 300px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #93867b;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 13px;
+}
+
+
+/* ==========================================
+   EDIT PAGE HEADER
+========================================== */
+
+.banner-page .banner-edit-header {
+  width: 100%;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+  margin-bottom: 22px;
+}
+
+.banner-page .banner-edit-header h2 {
+  margin: 0;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 28px;
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  color: #241c18;
+}
+
+.banner-page .banner-edit-header p {
+  margin: 5px 0 0;
+
+  color: #93867b;
+
+  font-size: 13px;
+}
+
+
+/* ==========================================
+   FORM
+========================================== */
+
+.banner-page .banner-form {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+/* ==========================================
+   FORM CARD
+========================================== */
+
+.banner-page .form-card {
+  width: 100%;
+
+  padding: 24px 26px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 1px 2px
+    rgba(36, 28, 24, 0.04),
+
+    0 8px 24px -12px
+    rgba(36, 28, 24, 0.12);
+}
+
+.banner-page .form-card h3 {
+  margin: 0 0 20px;
+
+  color: #241c18;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   FORM GROUP
+========================================== */
+
+.banner-page .form-group {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  margin-bottom: 16px;
+}
+
+.banner-page .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.banner-page .form-group label {
+  margin-bottom: 6px;
+
+  color: #4a3f38;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.banner-page .form-group input,
+.banner-page .form-group textarea {
+  width: 100%;
+
+  min-width: 0;
+
+  padding: 10px 13px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #faf6f0;
+
+  color: #241c18;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 13px;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.banner-page .form-group input::placeholder,
+.banner-page .form-group textarea::placeholder {
+  color: #93867b;
+}
+
+.banner-page .form-group input:focus,
+.banner-page .form-group textarea:focus {
+  border-color: #b3495a;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(179, 73, 90, 0.10);
+}
+
+.banner-page .form-group textarea {
+  resize: vertical;
+
+  min-height: 130px;
+
+  line-height: 1.5;
+}
+
+
+/* ==========================================
+   IMAGE UPLOAD
+========================================== */
+
+.banner-page input[type="file"] {
+  width: 100%;
+
+  padding: 12px;
+
+  margin-bottom: 16px;
+
+  box-sizing: border-box;
+
+  border: 1.5px dashed #d8cfc4;
+
+  border-radius: 10px;
+
+  background: #faf6f0;
+
+  color: #4a3f38;
+
+  font-family: "Inter", sans-serif;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.banner-page input[type="file"]:hover {
+  border-color: #b3495a;
+
+  background: #fcf8f4;
+}
+
+.banner-page input[type="file"]::file-selector-button {
+  margin-right: 10px;
+
+  padding: 7px 12px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #f6e7e9;
+
+  color: #8c3a48;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+
+/* ==========================================
+   IMAGE PREVIEW
+========================================== */
+
+.banner-page .image-preview {
+  width: 100%;
+
+  height: 300px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1e4e6,
+      #eadfcb
+    );
+}
+
+.banner-page .image-preview img {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.banner-page .preview-placeholder {
+  color: #c79fa6;
+
+  font-size: 13px;
+}
+
+
+/* ==========================================
+   TWO COLUMN
+========================================== */
+
+.banner-page .two-column {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+
+/* ==========================================
+   CHECKBOX
+========================================== */
+
+.banner-page .checkbox-group {
+  justify-content: flex-end;
+}
+
+.banner-page .checkbox {
+  min-height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.banner-page .checkbox input {
+  width: 17px;
+
+  height: 17px;
+
+  margin: 0;
+
+  accent-color: #b3495a;
+
+  cursor: pointer;
+}
+
+.banner-page .checkbox span {
+  color: #4a3f38;
+
+  font-size: 12.5px;
+
+  font-weight: 500;
+}
+
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.banner-page .submit-section {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 6px;
+}
+
+
+/* ==========================================
+   CANCEL
+========================================== */
+
+.banner-page .cancel-btn {
+  min-width: 120px;
+
+  height: 40px;
+
+  padding: 0 18px;
+
+  border: 1px solid #eae1d6;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #4a3f38;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.banner-page .cancel-btn:hover {
+  background: #fcf8f4;
+
+  border-color: #d8cfc4;
+
+  color: #241c18;
+}
+
+
+/* ==========================================
+   SAVE
+========================================== */
+
+.banner-page .save-btn {
+  min-width: 150px;
+
+  height: 40px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b3495a,
+      #8c3a48
+    );
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px -8px
+    rgba(179, 73, 90, 0.55);
+}
+
+.banner-page .save-btn:hover:not(:disabled) {
+  filter: brightness(1.05);
+
+  transform: translateY(-1px);
+}
+
+.banner-page .save-btn:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+
+/* ==========================================
+   EDIT TABLET
+========================================== */
+
+@media (max-width: 992px) {
+
+  .banner-page .banner-edit-header {
+    align-items: flex-start;
+  }
+
+  .banner-page .banner-edit-header h2 {
+    font-size: 25px;
+  }
+
+  .banner-page .form-card {
+    padding: 20px;
+  }
+
+  .banner-page .image-preview {
+    height: 250px;
+  }
 
 }
 
-.save-btn{
 
-    min-width:180px;
+/* ==========================================
+   EDIT MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .banner-page .banner-edit-header {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+  }
+
+  .banner-page .banner-edit-header h2 {
+    font-size: 23px;
+  }
+
+  .banner-page .form-card {
+    padding: 18px;
+
+    border-radius: 14px;
+  }
+
+  .banner-page .form-card h3 {
+    font-size: 17px;
+  }
+
+  .banner-page .two-column {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .banner-page .image-preview {
+    height: 210px;
+  }
+
+  .banner-page .submit-section {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .banner-page .cancel-btn,
+  .banner-page .save-btn {
+    width: 100%;
+
+    min-width: 0;
+  }
 
 }
 
-@media(max-width:768px){
 
-.submit-section{
+/* ==========================================
+   EDIT SMALL MOBILE
+========================================== */
 
-    flex-direction:column;
+@media (max-width: 480px) {
 
-}
+  .banner-page .banner-edit-header h2 {
+    font-size: 21px;
+  }
 
-.cancel-btn,
-.save-btn{
+  .banner-page .form-card {
+    padding: 15px;
 
-    width:100%;
+    border-radius: 12px;
+  }
 
-}
+  .banner-page .form-card h3 {
+    font-size: 16px;
+  }
+
+  .banner-page .image-preview {
+    height: 175px;
+  }
+
+  .banner-page .cancel-btn,
+  .banner-page .save-btn {
+    height: 42px;
+
+    font-size: 12.5px;
+  }
 
 }

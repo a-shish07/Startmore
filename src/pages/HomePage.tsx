@@ -11,26 +11,47 @@ interface HomePageProps {
   onNavigate: (page: Page, productId?: number) => void;
 }
 
-function useReveal() {
+function useReveal(trigger?: number) {
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
-      { threshold: 0.12 }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+      }
     );
-    const elements = document.querySelectorAll(".reveal");
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
 
+    const elements = document.querySelectorAll(".reveal");
+
+    elements.forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [trigger]);
+}
 export default function HomePage({ onNavigate }: HomePageProps) {
-  useReveal();
   const [testiIndex, setTestiIndex] = useState(0);
-const API_URL = import.meta.env.VITE_API_URL;
-const [banner, setBanner] = useState<any>(null);
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const [banner, setBanner] = useState<any>(null);
+  const [shapes, setShapes] = useState<any[]>([]);
+  const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+
+  useReveal(featuredProducts.length);
 useEffect(() => {
   fetchBanner();
   fetchShapes();
+  fetchFeaturedProducts();
 }, []);
 
 const fetchBanner = async () => {
@@ -69,6 +90,43 @@ const fetchShapes = async () => {
     console.error(error);
   }
 };
+const fetchFeaturedProducts = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/client/products`);
+    const data = await response.json();
+
+    console.log("All Products:", data.products);
+
+    data.products.forEach((p: any) => {
+      console.log("Product:", p.name, "featured =", p.featured, typeof p.featured);
+    });
+
+    // const featured = data.products.filter(
+    //   (p: any) =>
+    //     p.featured === true ||
+    //     p.featured === 1 ||
+    //     p.featured === "1"
+    // );
+
+    // console.log("Featured Products:", featured);
+
+    // setFeaturedProducts(featured.slice(0, 4));
+    const featured = (data.products || []).filter((p: any) => {
+  return (
+    p.featured === true ||
+    p.featured === 1 ||
+    p.featured === "1" ||
+    p.featured === "true"
+  );
+});
+
+console.log("FEATURED PRODUCTS:", featured);
+
+setFeaturedProducts(featured.slice(0, 4));
+  } catch (error) {
+    console.error(error);
+  }
+};
   const nextTesti = () => setTestiIndex((prev) => (prev + 1) % testimonials.length);
   const prevTesti = () => setTestiIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
@@ -78,7 +136,8 @@ const fetchShapes = async () => {
   //   { name: "Short Almond", count: "4 Products", image: "/shape-short-almond.png" },
   //   { name: "Short Square", count: "4 Products", image: "/shape-short-square.png" },
   // ];
-const [shapes, setShapes] = useState<any[]>([]);
+// const [shapes, setShapes] = useState<any[]>([]);
+// const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
 
 
   const instaImages = [
@@ -320,11 +379,17 @@ const [shapes, setShapes] = useState<any[]>([]);
           <p className="section-sub">Our most loved Aurora handmade press-on nails</p>
         </div>
         <div className="products-grid home-featured-grid">
-          {products.filter(p => p.featured).slice(0, 4).map((p, i) => (
-            <div key={p.id} className={`reveal reveal-delay-${i + 1}`}>
-              <ProductCard product={p} onNavigate={onNavigate} />
-            </div>
-          ))}
+          {featuredProducts.map((product: any, i: number) => (
+  <div
+    key={product.id}
+    className={`reveal reveal-delay-${i + 1}`}
+  >
+    <ProductCard
+      product={product}
+      onNavigate={onNavigate}
+    />
+  </div>
+))}
         </div>
         <div className="center" style={{ marginTop: "48px" }}>
           <button className="btn-primary" onClick={() => onNavigate("products")}>

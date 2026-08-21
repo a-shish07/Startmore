@@ -1,175 +1,175 @@
 
 
-import { NextRequest, NextResponse } from "next/server";
-import pool from "@/lib/db";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+// import { NextRequest, NextResponse } from "next/server";
+// import pool from "@/lib/db";
+// import { writeFile, mkdir } from "fs/promises";
+// import path from "path";
 
-/*
-==========================================
-GET ALL BANNERS
-GET /api/admin/banners
-==========================================
-*/
+// /*
+// ==========================================
+// GET ALL BANNERS
+// GET /api/admin/banners
+// ==========================================
+// */
 
-export async function GET() {
-  try {
-    const result = await pool.query(`
-      SELECT
-        id,
-        title,
-        subtitle,
-        description,
-        image_url,
-        button_text,
-        button_link,
-        sort_order,
-        status,
-        created_at
-      FROM hero_banners
-      ORDER BY sort_order ASC
-    `);
+// export async function GET() {
+//   try {
+//     const result = await pool.query(`
+//       SELECT
+//         id,
+//         title,
+//         subtitle,
+//         description,
+//         image_url,
+//         button_text,
+//         button_link,
+//         sort_order,
+//         status,
+//         created_at
+//       FROM hero_banners
+//       ORDER BY sort_order ASC
+//     `);
 
-    return NextResponse.json(
-      {
-        success: true,
-        data: result.rows,
-      },
-      {
-        status: 200,
-      }
-    );
-  } catch (error) {
-    console.error("GET Banner Error:", error);
+//     return NextResponse.json(
+//       {
+//         success: true,
+//         data: result.rows,
+//       },
+//       {
+//         status: 200,
+//       }
+//     );
+//   } catch (error) {
+//     console.error("GET Banner Error:", error);
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch banners",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
+//     return NextResponse.json(
+//       {
+//         success: false,
+//         message: "Failed to fetch banners",
+//       },
+//       {
+//         status: 500,
+//       }
+//     );
+//   }
+// }
 
-/*
-==========================================
-CREATE BANNER
-POST /api/admin/banners
-==========================================
-*/
+// /*
+// ==========================================
+// CREATE BANNER
+// POST /api/admin/banners
+// ==========================================
+// */
 
-export async function POST(req: NextRequest) {
-  try {
-    console.log("===== NEW POST ROUTE =====");
+// export async function POST(req: NextRequest) {
+//   try {
+//     console.log("===== NEW POST ROUTE =====");
 
-    const formData = await req.formData();
+//     const formData = await req.formData();
 
-    const file = formData.get("image") as File | null;
+//     const file = formData.get("image") as File | null;
 
-    const title = formData.get("title") as string;
-    const subtitle = formData.get("subtitle") as string;
-    const description = formData.get("description") as string;
-    const button_text = formData.get("button_text") as string;
-    const button_link = formData.get("button_link") as string;
-    const sort_order = Number(formData.get("sort_order") || 1);
-    const status = formData.get("status") === "true";
+//     const title = formData.get("title") as string;
+//     const subtitle = formData.get("subtitle") as string;
+//     const description = formData.get("description") as string;
+//     const button_text = formData.get("button_text") as string;
+//     const button_link = formData.get("button_link") as string;
+//     const sort_order = Number(formData.get("sort_order") || 1);
+//     const status = formData.get("status") === "true";
 
-    if (!title || !file) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Title and Banner Image are required.",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
+//     if (!title || !file) {
+//       return NextResponse.json(
+//         {
+//           success: false,
+//           message: "Title and Banner Image are required.",
+//         },
+//         {
+//           status: 400,
+//         }
+//       );
+//     }
 
-    // Upload folder
-    const uploadDir = path.join(
-      process.cwd(),
-      "public",
-      "uploads",
-      "banners"
-    );
+//     // Upload folder
+//     const uploadDir = path.join(
+//       process.cwd(),
+//       "public",
+//       "uploads",
+//       "banners"
+//     );
 
-    // Create folder if it doesn't exist
-    await mkdir(uploadDir, {
-      recursive: true,
-    });
+//     // Create folder if it doesn't exist
+//     await mkdir(uploadDir, {
+//       recursive: true,
+//     });
 
-    // Safe filename
-    const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const fileName = `${Date.now()}-${safeName}`;
+//     // Safe filename
+//     const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+//     const fileName = `${Date.now()}-${safeName}`;
 
-    const filePath = path.join(uploadDir, fileName);
+//     const filePath = path.join(uploadDir, fileName);
 
-    // Save file
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+//     // Save file
+//     const bytes = await file.arrayBuffer();
+//     const buffer = Buffer.from(bytes);
 
-    await writeFile(filePath, buffer);
+//     await writeFile(filePath, buffer);
 
-    // Store relative path in database
-    const image_url = `/uploads/banners/${fileName}`;
+//     // Store relative path in database
+//     const image_url = `/uploads/banners/${fileName}`;
 
-    const result = await pool.query(
-      `
-      INSERT INTO hero_banners
-      (
-        title,
-        subtitle,
-        description,
-        image_url,
-        button_text,
-        button_link,
-        sort_order,
-        status
-      )
-      VALUES
-      (
-        $1,$2,$3,$4,$5,$6,$7,$8
-      )
-      RETURNING *
-      `,
-      [
-        title,
-        subtitle,
-        description,
-        image_url,
-        button_text,
-        button_link,
-        sort_order,
-        status,
-      ]
-    );
+//     const result = await pool.query(
+//       `
+//       INSERT INTO hero_banners
+//       (
+//         title,
+//         subtitle,
+//         description,
+//         image_url,
+//         button_text,
+//         button_link,
+//         sort_order,
+//         status
+//       )
+//       VALUES
+//       (
+//         $1,$2,$3,$4,$5,$6,$7,$8
+//       )
+//       RETURNING *
+//       `,
+//       [
+//         title,
+//         subtitle,
+//         description,
+//         image_url,
+//         button_text,
+//         button_link,
+//         sort_order,
+//         status,
+//       ]
+//     );
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Banner created successfully.",
-        banner: result.rows[0],
-      },
-      {
-        status: 201,
-      }
-    );
-  } catch (error: any) {
-    console.error("CREATE Banner Error:", error);
+//     return NextResponse.json(
+//       {
+//         success: true,
+//         message: "Banner created successfully.",
+//         banner: result.rows[0],
+//       },
+//       {
+//         status: 201,
+//       }
+//     );
+//   } catch (error: any) {
+//     console.error("CREATE Banner Error:", error);
 
-    return NextResponse.json(
-      {
-        success: false,
-        message: error.message,
-        stack: error.stack,
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
+//     return NextResponse.json(
+//       {
+//         success: false,
+//         message: error.message,
+//         stack: error.stack,
+//       },
+//       {
+//         status: 500,
+//       }
+//     );
+//   }
+// }

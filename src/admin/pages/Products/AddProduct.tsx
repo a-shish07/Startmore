@@ -57,6 +57,8 @@ const AddProduct = () => {
 
   const [discountPrice, setDiscountPrice] = useState("");
 
+  const [shippingCost, setShippingCost] = useState("0");
+
   const [stock, setStock] = useState("");
 
   const [sku, setSku] = useState("");
@@ -294,6 +296,8 @@ const fetchSizes = async () => {
       formData.append("price", price);
 
       formData.append("discount_price", discountPrice);
+
+      formData.append("shipping_cost", shippingCost);
 
       formData.append("stock", stock);
 
@@ -601,6 +605,21 @@ const fetchSizes = async () => {
     </div>
 
     {/* Stock */}
+
+    <div className="form-group">
+
+      <label>Shipping Cost (per item)</label>
+
+      <input
+        type="number"
+        min="0"
+        step="0.01"
+        value={shippingCost}
+        onChange={(e) => setShippingCost(e.target.value)}
+        required
+      />
+
+    </div>
 
     <div className="form-group">
 

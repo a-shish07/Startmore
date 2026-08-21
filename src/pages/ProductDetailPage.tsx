@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-// import { products } from "../data/products";
 import { useCart } from "../context/CartContext";
 import { useNotif } from "../components/Notification";
 import ProductCard from "../components/ProductCard";
 import { useFavorites } from "../context/FavoritesContext";
-const API_URL = import.meta.env.VITE_API_URL;
 
 type Page =
   | "home"
@@ -17,10 +15,6 @@ type Page =
   | "contact"
   | "favorites";
 
-// interface ProductDetailProps {
-//   productId: number;
-//   onNavigate: (page: Page, productId?: number) => void;
-// }
 interface ProductDetailProps {
   productId: string;
   onNavigate: (page: Page, productId?: any) => void;
@@ -75,7 +69,7 @@ const sampleReviews = [
       "I've purchased from this store three times now and have never been disappointed. This piece is elegant, well-made, and the customer service was excellent.",
   },
 ];
-
+const API_URL = import.meta.env.VITE_API_URL;
 function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {
   return (
     <span style={{ display: "inline-flex", gap: "2px" }}>
@@ -119,42 +113,83 @@ export default function ProductDetailPage({
   productId,
   onNavigate,
 }: ProductDetailProps) {
-  // const product = products.find((p) => p.id === productId) || products[0];
 
   const [product, setProduct] = useState<any>(null);
 
-  useEffect(() => {
-  fetchProduct();
-}, [productId]);
-if (!product) {
-  return <div>Loading...</div>;
-}
-const fetchProduct = async () => {
-  try {
-    const response = await fetch(
-      `${API_URL}/api/client/products/${productId}`
-    );
 
-    const data = await response.json();
-
-    if (data.success) {
-      setProduct(data.product);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
   const [activeImg, setActiveImg] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0] || "");
+  const [selectedSize, setSelectedSize] = useState("");
   const [qty, setQty] = useState(1);
-  const [activeTab, setActiveTab] = useState<"description" | "reviews" | "how_to_apply" | "shipping_returns">("description");
-  const [showAllReviews, setShowAllReviews] = useState(false);
 
-  const { addToCart } = useCart();
+  const [activeTab, setActiveTab] = useState<
+    "description" | "reviews" | "how_to_apply" | "shipping_returns"
+  >("description");
+
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const [related, setRelated] = useState<any[]>([]);
+
+const { addToCart, getProductShipping } = useCart();
   const { show } = useNotif();
   const { toggleFavorite, isFavorite } = useFavorites();
 
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/client/products/${productId}`
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setProduct(data.product);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchRelatedProducts = async () => {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/client/products`
+      );
+
+      const data = await response.json();
+
+      if (data.success && product) {
+        setRelated(
+          data.products
+            .filter((p: any) => p.id !== product.id)
+            .slice(0, 4)
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, [productId]);
+
+  useEffect(() => {
+    if (product?.sizes?.length) {
+      setSelectedSize(product.sizes[0].name);
+    }
+  }, [product]);
+
+  useEffect(() => {
+    if (product) {
+      fetchRelatedProducts();
+    }
+  }, [product]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   const isFav = isFavorite(product.id);
+  const shipping = getProductShipping(product.id);
 
   const handleAddToCart = () => {
     for (let i = 0; i < qty; i++) {
@@ -165,91 +200,151 @@ const fetchProduct = async () => {
 
   const handleWishlist = () => {
     toggleFavorite(product);
-    if (!isFav) show(`${product.name} saved to favorites!`);
+
+    if (!isFav) {
+      show(`${product.name} saved to favorites!`);
+    }
   };
 
-  const related = products
-    .filter((p) => p.id !== product.id && p.category !== product.category)
-    .slice(0, 4);
-
   const description =
-    extendedDescriptions[product.id] ||
-    product.description +
-    " Crafted with meticulous attention to detail, this piece reflects our commitment to quality and timeless design. Each item is individually inspected before dispatch to ensure it meets our exacting standards. Whether worn daily or reserved for special occasions, it is designed to be treasured for years to come.";
+  product.description ||
+  extendedDescriptions[product.id] ||
+  "No description available.";
 
   // ─── Shared sub-sections ───────────────────────────────────────────────────
 
-  const galleryBlock = (
-    <div className="img-gallery">
-      <div className="thumb-list">
-        {product.images.map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            alt={`${product.name} ${i + 1}`}
-            className={`thumb${activeImg === i ? " active" : ""}`}
-            onClick={() => setActiveImg(i)}
-          />
-        ))}
-      </div>
-      <div className="main-img">
-        <img src={product.images[activeImg] || product.image} alt={product.name} />
-      </div>
+const galleryBlock = (
+  <div className="img-gallery">
+    <div className="thumb-list">
+      {product.images?.map((img: any, i: number) => (
+        <img
+          key={img.id}
+          src={`${API_URL}${img.image_url}`}
+          alt={`${product.name} ${i + 1}`}
+          className={`thumb${activeImg === i ? " active" : ""}`}
+          onClick={() => setActiveImg(i)}
+        />
+      ))}
     </div>
-  );
 
-  const infoBlock = (
-    <>
-      <p className="detail-label">{product.category}</p>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px" }}>
-        <h1 className="detail-title" style={{ margin: 0, flex: 1 }}>
-          {product.name}
-        </h1>
-        <button
-          onClick={handleWishlist}
-          aria-label="Add to wishlist"
-          className="wishlist-btn"
-        >
-          <i
-            className={isFav ? "ri-heart-3-fill" : "ri-heart-line"}
-            style={{ fontSize: "16px", color: isFav ? "#e63946" : "#aaa" }}
-          />
-        </button>
-      </div>
+    <div className="main-img">
+      <img
+        src={
+          product.images?.[activeImg]?.image_url
+            ? `${API_URL}${product.images[activeImg].image_url}`
+            : "/placeholder.png"
+        }
+        alt={product.name}
+      />
+    </div>
+  </div>
+);
 
-      <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "10px", marginBottom: "8px" }}>
-        <StarRating rating={Math.round(product.rating)} />
-        <span style={{ fontSize: "13px", color: "var(--text-muted)" }}>
-          ({product.reviews} reviews)
+ const infoBlock = (
+  <>
+    <p className="detail-label">
+      {product.category_name}
+    </p>
+
+    <div
+      style={{
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        gap: "12px",
+      }}
+    >
+      <h1
+        className="detail-title"
+        style={{ margin: 0, flex: 1 }}
+      >
+        {product.name}
+      </h1>
+
+      <button
+        onClick={handleWishlist}
+        aria-label="Add to wishlist"
+        className="wishlist-btn"
+      >
+        <i
+          className={isFav ? "ri-heart-3-fill" : "ri-heart-line"}
+          style={{
+            fontSize: "16px",
+            color: isFav ? "#e63946" : "#aaa",
+          }}
+        />
+      </button>
+    </div>
+
+    <div
+      style={{
+        display: "flex",
+        gap: "8px",
+        alignItems: "center",
+        marginTop: "10px",
+        marginBottom: "8px",
+      }}
+    >
+      <StarRating
+        rating={Math.round(Number(product.rating || 0))}
+      />
+
+      <span
+        style={{
+          fontSize: "13px",
+          color: "var(--text-muted)",
+        }}
+      >
+        ({product.review_count} reviews)
+      </span>
+    </div>
+
+    <div className="detail-price">
+      £{product.discount_price || product.price}
+
+      {product.discount_price && (
+        <span className="old">
+          £{product.price}
         </span>
-      </div>
-
-      <div className="detail-price">
-        £{product.price}
-        {product.oldPrice && <span className="old">£{product.oldPrice}</span>}
-      </div>
-
-      {product.sizes.length > 0 && (
-        <>
-          <p className="option-label">
-            Size: <strong>{selectedSize}</strong>
-          </p>
-          <div className="size-options">
-            {["XS", "S", "M"].map((s) => (
-              <button
-                key={s}
-                className={`size-btn${selectedSize === s ? " active" : ""}`}
-                onClick={() => setSelectedSize(s)}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        </>
       )}
-    </>
-  );
+    </div>
+    <div
+  style={{
+    fontSize: "13px",
+    color: "var(--text-muted)",
+    marginTop: "8px",
+    marginBottom: "12px",
+  }}
+>
+  <strong>Shipping:</strong>{" "}
+  <span style={{ color: shipping === 0 ? "var(--gold)" : "inherit" }}>
+    {shipping === 0 ? "Free" : `£${shipping.toFixed(2)}`}
+  </span>
+</div>
 
+    {product.sizes?.length > 0 && (
+      <>
+        <p className="option-label">
+          Size: <strong>{selectedSize}</strong>
+        </p>
+
+        <div className="size-options">
+          {product.sizes.map((size: any) => (
+            <button
+              key={size.id}
+              className={`size-btn${
+                selectedSize === size.name ? " active" : ""
+              }`}
+              onClick={() => setSelectedSize(size.name)}
+            >
+              {size.name}
+            </button>
+          ))}
+        </div>
+      </>
+    )}
+  </>
+);
   const qtyAndCTABlock = (
     <div className="cta-row">
       <div className="qty-selector-new">
@@ -293,9 +388,9 @@ const fetchProduct = async () => {
       <div className="rating-summary">
         {/* Score + stars + count — top row */}
         <div className="rating-top">
-          <span className="rating-score">{product.rating.toFixed(1)}</span>
-          <StarRating rating={Math.round(product.rating)} size={13} />
-          <span className="rating-count">{product.reviews} reviews</span>
+          <span className="rating-score">{Number(product.rating || 0).toFixed(1)}</span>
+          <StarRating rating={Math.round(Number(product.rating || 0))} size={13} />
+          <span className="rating-count">{product.review_count} reviews</span>
         </div>
         {/* Bars — stacked below, full width */}
         <div className="rating-bars">
@@ -370,7 +465,7 @@ const fetchProduct = async () => {
             onClick={() => setActiveTab(tab)}
             className={`tab-btn${activeTab === tab ? " active" : ""}`}
           >
-            {tab === "reviews" ? `REVIEWS (${product.reviews})` : tab === "shipping_returns" ? "SHIPPING & RETURNS" : tab.replace(/_/g, " ").toUpperCase()}
+            {tab === "reviews" ? `REVIEWS (${product.review_count})` : tab === "shipping_returns" ? "SHIPPING & RETURNS" : tab.replace(/_/g, " ").toUpperCase()}
           </button>
         ))}
       </div>
@@ -600,14 +695,25 @@ const fetchProduct = async () => {
           {/* ── COL 1: Gallery + core product info + similar products ── */}
           <div className="m-col m-col-1">
             <div className="m-main-img">
-              <img src={product.images[activeImg] || product.image} alt={product.name} />
+              <img
+  src={
+    product.images?.[activeImg]?.image_url
+      ? `${API_URL}${product.images[activeImg].image_url}`
+      : "/placeholder.png"
+  }
+  alt={product.name}
+/>
             </div>
 
             <div className="m-thumb-row">
-              {product.images.map((img, i) => (
+              {product.images?.map((img: any, i: number) => (
                 <img
                   key={i}
-                  src={img}
+                  src={
+                    img.image_url
+                      ? `${API_URL}${img.image_url}`
+                      : "/placeholder.png"
+                  }
                   alt={`${product.name} ${i + 1}`}
                   className={`m-thumb${activeImg === i ? " active" : ""}`}
                   onClick={() => setActiveImg(i)}
@@ -616,7 +722,7 @@ const fetchProduct = async () => {
             </div>
 
             <div className="m-info">
-              <p className="detail-label">{product.category}</p>
+              <p className="detail-label">{product.category_name}</p>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px" }} className="wishlist-title-row">
                 <h1 className="m-title">{product.name}</h1>
                 <button onClick={handleWishlist} aria-label="Add to wishlist" className="wishlist-btn">
@@ -625,33 +731,57 @@ const fetchProduct = async () => {
               </div>
 
               <div style={{ display: "flex", gap: "6px", alignItems: "center", justifyContent: "flex-start", marginTop: "6px", marginBottom: "6px" }}>
-                <StarRating rating={Math.round(product.rating)} size={12} />
-                <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>({product.reviews})</span>
+               <StarRating
+                  rating={Math.round(Number(product.rating || 0))}
+                  size={12}
+                />
+                <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>({product.review_count})</span>
               </div>
 
-              <div className="m-price">
-                £{product.price}
-                {product.oldPrice && <span className="old">£{product.oldPrice}</span>}
-              </div>
+             <div className="m-price">
+  £{product.discount_price || product.price}
 
-              {product.sizes.length > 0 && (
-                <>
-                  <p className="option-label" style={{ fontSize: "11px" }}>
-                    Size: <strong>{selectedSize}</strong>
-                  </p>
-                  <div className="size-options">
-                    {["XS", "S", "M"].map((s) => (
-                      <button
-                        key={s}
-                        className={`size-btn${selectedSize === s ? " active" : ""}`}
-                        onClick={() => setSelectedSize(s)}
-                      >
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
+  {product.discount_price && (
+    <span className="old">
+      £{product.price}
+    </span>
+  )}
+</div>
+
+<div
+  style={{
+    fontSize: "11px",
+    color: "var(--text-muted)",
+    marginTop: "3px",
+    marginBottom: "5px",
+  }}
+>
+  <strong>Shipping:</strong>{" "}
+  <span style={{ color: shipping === 0 ? "var(--gold)" : "inherit" }}>
+    {shipping === 0 ? "Free" : `£${shipping.toFixed(2)}`}
+  </span>
+</div>
+              {product.sizes?.length > 0 && (
+  <>
+    <p className="option-label" style={{ fontSize: "11px" }}>
+      Size: <strong>{selectedSize}</strong>
+    </p>
+
+    <div className="size-options">
+      {product.sizes.map((size: any) => (
+        <button
+          key={size.id}
+          className={`size-btn${
+            selectedSize === size.name ? " active" : ""
+          }`}
+          onClick={() => setSelectedSize(size.name)}
+        >
+          {size.name}
+        </button>
+      ))}
+    </div>
+  </>
+)}
 
               {/* Short summary for Col 1 — full description lives in Col 2 accordion */}
               <p className="m-col1-desc">
@@ -664,7 +794,10 @@ const fetchProduct = async () => {
 
           {/* ── COL 2: Description + Reviews + Similar Products + Need Help ── */}
           <div className="m-col m-col-2">
-            <AccordionItem label="DESCRIPTION" defaultOpen={true}>
+            <AccordionItem
+  label={`REVIEWS (${product.review_count})`}
+  defaultOpen={false}
+>
               <p className="product-body-text">{description}</p>
               <div className="m-features-strip">
                 {[
@@ -694,7 +827,7 @@ const fetchProduct = async () => {
               {shippingReturnsBlock}
             </AccordionItem>
 
-            <AccordionItem label={`REVIEWS (${product.reviews})`} defaultOpen={false}>
+            <AccordionItem label={`REVIEWS (${product.review_count})`}>
               {reviewsBlock}
             </AccordionItem>
 

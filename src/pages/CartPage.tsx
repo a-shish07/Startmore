@@ -10,12 +10,13 @@ interface CartPageProps {
 }
 
 export default function CartPage({ onNavigate }: CartPageProps) {
-  const { items, removeFromCart, updateQuantity, totalPrice } = useCart();
+  const { items, removeFromCart, updateQuantity, totalPrice, totalShipping, getProductShipping } = useCart();
+  console.log(items);
   const [coupon, setCoupon] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [orderNote, setOrderNote] = useState("");
 
-  const shipping = totalPrice >= 50 ? 0 : 5;
+  const shipping = totalShipping;
   const discount = couponApplied ? Math.round(totalPrice * 0.1) : 0;
   const total = Math.max(0, totalPrice + shipping - discount);
 
@@ -50,22 +51,36 @@ export default function CartPage({ onNavigate }: CartPageProps) {
             <th>Product</th>
             <th></th>
             <th>Price</th>
+            <th>Shipping</th>
             <th>Quantity</th>
-            <th>Total</th>
+            <th>Product Total</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {items.map(item => (
+          {/* {items.map(item => (
             <tr key={`${item.product.id}-${item.size}-${item.color}`}>
               <td>
-                <img src={item.product.image} alt={item.product.name} className="cart-item-img" />
+                <img
+src={
+  item.product.images?.length
+    ? `${import.meta.env.VITE_API_URL}${item.product.images[0].image_url}`
+    : "/placeholder.png"
+}
+  alt={item.product.name}
+  className="cart-item-img"
+/>
               </td>
               <td>
                 <div className="cart-item-name">{item.product.name}</div>
                 <div className="cart-item-variant">{item.size}</div>
               </td>
-              <td>£{item.product.price.toFixed(2)}</td>
+              <td>
+  £
+  {Number(
+    item.product.discount_price || item.product.price
+  ).toFixed(2)}
+</td>
               <td>
                 <div className="cart-qty">
                   <button onClick={() => updateQuantity(item.product.id, item.size, item.color, -1)}>−</button>
@@ -73,14 +88,116 @@ export default function CartPage({ onNavigate }: CartPageProps) {
                   <button onClick={() => updateQuantity(item.product.id, item.size, item.color, 1)}>+</button>
                 </div>
               </td>
-              <td>£{(item.product.price * item.quantity).toFixed(2)}</td>
+              <td>
+  £
+  {(
+    Number(
+      item.product.discount_price || item.product.price
+    ) * item.quantity
+  ).toFixed(2)}
+</td>
               <td>
                 <button className="remove-btn" onClick={() => removeFromCart(item.product.id, item.size, item.color)}>
                   ✕
                 </button>
               </td>
             </tr>
-          ))}
+          ))} */}
+          {items.map((item) => {
+  const price =
+    item.product.discount_price !== null &&
+    item.product.discount_price !== undefined
+      ? Number(item.product.discount_price)
+      : Number(item.product.price);
+  const itemShipping = getProductShipping(item.product.id);
+  const productTotal = (price + itemShipping) * item.quantity;
+
+  return (
+    <tr key={`${item.product.id}-${item.size}-${item.color}`}>
+      <td>
+        <img
+          src={
+            item.product.images?.length
+              ? `${import.meta.env.VITE_API_URL}${item.product.images[0].image_url}`
+              : "/placeholder.png"
+          }
+          alt={item.product.name}
+          className="cart-item-img"
+        />
+      </td>
+
+      <td>
+        <div className="cart-item-name">
+          {item.product.name}
+        </div>
+
+        <div className="cart-item-variant">
+          {item.size}
+        </div>
+      </td>
+
+      <td>
+        £{price.toFixed(2)}
+      </td>
+
+      <td>
+        {itemShipping === 0 ? "Free" : `£${itemShipping.toFixed(2)}`}
+      </td>
+
+      <td>
+        <div className="cart-qty">
+          <button
+            onClick={() =>
+              updateQuantity(
+                item.product.id,
+                item.size,
+                item.color,
+                -1
+              )
+            }
+          >
+            −
+          </button>
+
+          <span>{item.quantity}</span>
+
+          <button
+            onClick={() =>
+              updateQuantity(
+                item.product.id,
+                item.size,
+                item.color,
+                1
+              )
+            }
+          >
+            +
+          </button>
+        </div>
+      </td>
+      
+
+      <td>
+        £{productTotal.toFixed(2)}
+      </td>
+
+      <td>
+        <button
+          className="remove-btn"
+          onClick={() =>
+            removeFromCart(
+              item.product.id,
+              item.size,
+              item.color
+            )
+          }
+        >
+          ✕
+        </button>
+      </td>
+    </tr>
+  );
+})}
         </tbody>
       </table>
 

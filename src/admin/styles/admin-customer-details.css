@@ -1,0 +1,1037 @@
+/* ==========================================
+   CUSTOMER DETAILS PAGE
+========================================== */
+
+.customer-details-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.customer-details-header {
+  margin-bottom: 18px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 14px;
+
+  color: #555;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+.back-btn:hover {
+  color: #111;
+}
+
+
+/* ==========================================
+   CUSTOMER TITLE
+========================================== */
+
+.customer-title {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.customer-large-avatar {
+  width: 46px;
+  height: 46px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f1f1f1;
+
+  border: 1px solid #ddd;
+
+  color: #333;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.customer-title h1 {
+  margin: 0;
+
+  color: #222;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  word-break: break-word;
+}
+
+.customer-title p {
+  margin: 3px 0 0;
+
+  color: #777;
+
+  font-size: 12px;
+}
+
+
+/* ==========================================
+   CUSTOMER INFORMATION PANEL
+========================================== */
+
+.customer-info-panel {
+  width: 100%;
+
+  margin-bottom: 14px;
+
+  background: #fff;
+
+  border: 1px solid #e8e8e8;
+
+  border-radius: 9px;
+
+  box-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.04);
+
+  overflow: hidden;
+}
+
+
+/* ==========================================
+   PANEL TITLE
+========================================== */
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.panel-title h2 {
+  margin: 0;
+
+  color: #222;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.panel-title p {
+  margin: 3px 0 0;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   CUSTOMER INFO GRID
+========================================== */
+
+.customer-info-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 0;
+}
+
+.customer-info-item {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+
+  padding: 16px;
+
+  border-right: 1px solid #eee;
+}
+
+.customer-info-item:last-child {
+  border-right: none;
+}
+
+.customer-info-item > svg {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+  border-radius: 7px;
+
+  background: #f5f5f5;
+
+  color: #555;
+
+  font-size: 13px;
+}
+
+.customer-info-item > div {
+  min-width: 0;
+}
+
+.customer-info-item span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #888;
+
+  font-size: 10px;
+}
+
+.customer-info-item strong {
+  display: block;
+
+  color: #222;
+
+  font-size: 12px;
+
+  word-break: break-word;
+}
+
+
+/* ==========================================
+   SPECIAL ICONS
+========================================== */
+
+.currency-icon {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  display: flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 !important;
+
+  border-radius: 7px;
+
+  background: #f5f5f5;
+
+  color: #555 !important;
+
+  font-size: 15px !important;
+  font-weight: 700;
+}
+
+.calendar-icon {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  display: flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #f5f5f5;
+
+  color: #555;
+
+  font-size: 13px !important;
+}
+
+
+/* ==========================================
+   CONTENT GRID
+========================================== */
+
+.customer-content-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.5fr)
+    minmax(280px, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 14px;
+}
+
+
+/* ==========================================
+   GENERAL PANEL
+========================================== */
+
+.customer-panel {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  background: #fff;
+
+  border: 1px solid #e8e8e8;
+
+  border-radius: 9px;
+
+  box-shadow:
+    0 1px 5px rgba(0, 0, 0, 0.04);
+
+  overflow: hidden;
+}
+
+
+/* ==========================================
+   ADDRESSES
+========================================== */
+
+.addresses-list {
+  padding: 13px;
+}
+
+.address-card {
+  display: flex;
+
+  gap: 11px;
+
+  padding: 12px;
+
+  margin-bottom: 9px;
+
+  background: #fafafa;
+
+  border: 1px solid #eee;
+
+  border-radius: 8px;
+}
+
+.address-card:last-child {
+  margin-bottom: 0;
+}
+
+.address-icon {
+  width: 31px;
+  height: 31px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  background: #f1f1f1;
+
+  color: #555;
+
+  font-size: 12px;
+}
+
+.address-content {
+  min-width: 0;
+}
+
+.address-content strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #222;
+
+  font-size: 12px;
+}
+
+.address-content p {
+  margin: 2px 0;
+
+  color: #666;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.address-phone {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 6px;
+
+  color: #555;
+
+  font-size: 10px;
+}
+
+
+/* ==========================================
+   ORDER SUMMARY
+========================================== */
+
+.summary-content {
+  padding: 7px 16px 14px;
+}
+
+.summary-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #eee;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row span {
+  color: #777;
+
+  font-size: 11px;
+}
+
+.summary-row strong {
+  color: #222;
+
+  font-size: 13px;
+
+  white-space: nowrap;
+}
+
+.summary-row .cyan-text {
+  color: #222;
+}
+
+
+/* ==========================================
+   ORDER HISTORY
+========================================== */
+
+.orders-panel {
+  margin-bottom: 0;
+}
+
+.order-total-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 25px;
+
+  padding: 4px 8px;
+
+  border-radius: 14px;
+
+  background: #f1f1f1;
+
+  border: 1px solid #ddd;
+
+  color: #444;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   ORDERS TABLE
+========================================== */
+
+.orders-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.customer-orders-table {
+  width: 100%;
+
+  min-width: 720px;
+
+  border-collapse: collapse;
+}
+
+.customer-orders-table th,
+.customer-orders-table td {
+  padding: 11px 13px;
+
+  text-align: left;
+
+  border-bottom: 1px solid #eee;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.customer-orders-table th {
+  background: #f5f5f5;
+
+  color: #555;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+}
+
+.customer-orders-table td {
+  color: #555;
+}
+
+.customer-orders-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.customer-orders-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.customer-orders-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* ==========================================
+   ORDER NUMBER
+========================================== */
+
+.order-number {
+  color: #222;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   ORDER PRICE
+========================================== */
+
+.order-price {
+  color: #222;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.payment-badge,
+.status-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 8px;
+
+  border-radius: 15px;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+/* ==========================================
+   PAYMENT
+========================================== */
+
+.payment-badge.paid {
+  background: #edf7f0;
+  color: #24733e;
+}
+
+.payment-badge.pending {
+  background: #fff7e8;
+  color: #a86400;
+}
+
+.payment-badge.failed {
+  background: #fff0f0;
+  color: #b42323;
+}
+
+
+/* ==========================================
+   ORDER STATUS
+========================================== */
+
+.status-badge.placed {
+  background: #f1f1f1;
+  color: #555;
+}
+
+.status-badge.pending {
+  background: #fff7e8;
+  color: #a86400;
+}
+
+.status-badge.processing {
+  background: #eef4ff;
+  color: #315fa8;
+}
+
+.status-badge.shipped {
+  background: #f2efff;
+  color: #6650a8;
+}
+
+.status-badge.delivered {
+  background: #edf7f0;
+  color: #24733e;
+}
+
+.status-badge.cancelled {
+  background: #fff0f0;
+  color: #b42323;
+}
+
+
+/* ==========================================
+   VIEW ORDER BUTTON
+========================================== */
+
+.view-order-btn {
+  width: 29px;
+  height: 29px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border-radius: 6px;
+
+  background: #f5f5f5;
+
+  border: 1px solid #ddd;
+
+  color: #555;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.view-order-btn:hover {
+  background: #111;
+
+  border-color: #111;
+
+  color: #fff;
+}
+
+
+/* ==========================================
+   EMPTY PANEL
+========================================== */
+
+.empty-panel {
+  padding: 35px 20px;
+
+  text-align: center;
+}
+
+.empty-panel svg {
+  color: #888;
+
+  font-size: 24px;
+}
+
+.empty-panel p {
+  margin: 9px 0 0;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   EMPTY ORDERS
+========================================== */
+
+.empty-orders {
+  padding: 50px 20px;
+
+  text-align: center;
+}
+
+.empty-orders svg {
+  color: #888;
+
+  font-size: 28px;
+}
+
+.empty-orders h3 {
+  margin: 11px 0 5px;
+
+  color: #222;
+
+  font-size: 15px;
+}
+
+.empty-orders p {
+  margin: 0;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.customer-details-page .page-loading {
+  width: 100%;
+
+  padding: 60px 20px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  color: #666;
+
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.customer-details-page .error-message {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 12px 14px;
+
+  margin-top: 15px;
+
+  border: 1px solid #ffd5d5;
+
+  border-radius: 7px;
+
+  background: #fff5f5;
+
+  color: #c62828;
+
+  font-size: 12px;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1000px) {
+
+  .customer-details-page {
+    padding: 18px;
+  }
+
+  .customer-info-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .customer-info-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .customer-info-item:nth-child(1),
+  .customer-info-item:nth-child(2) {
+    border-bottom: 1px solid #eee;
+  }
+
+  .customer-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* ==========================================
+   IPAD
+========================================== */
+
+@media (max-width: 768px) {
+
+  .customer-details-page {
+    padding: 16px;
+  }
+
+  .customer-title h1 {
+    font-size: 22px;
+  }
+
+  .customer-content-grid {
+    gap: 12px;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+
+  .customer-details-page {
+    padding: 13px;
+  }
+
+  .customer-details-header {
+    margin-bottom: 15px;
+  }
+
+  .back-btn {
+    margin-bottom: 12px;
+
+    font-size: 12px;
+  }
+
+  .customer-title {
+    gap: 10px;
+  }
+
+  .customer-large-avatar {
+    width: 42px;
+    height: 42px;
+
+    font-size: 16px;
+  }
+
+  .customer-title h1 {
+    font-size: 20px;
+  }
+
+  .customer-title p {
+    font-size: 10px;
+  }
+
+
+  /* INFO GRID */
+
+  .customer-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-info-item {
+    border-right: none;
+
+    border-bottom: 1px solid #eee;
+  }
+
+  .customer-info-item:last-child {
+    border-bottom: none;
+  }
+
+
+  /* PANEL */
+
+  .panel-title {
+    padding: 13px;
+  }
+
+  .panel-title h2 {
+    font-size: 13px;
+  }
+
+  .panel-title p {
+    font-size: 10px;
+  }
+
+
+  /* CONTENT */
+
+  .customer-content-grid {
+    gap: 12px;
+  }
+
+
+  /* ADDRESS */
+
+  .addresses-list {
+    padding: 11px;
+  }
+
+  .address-card {
+    padding: 10px;
+  }
+
+
+  /* ORDER TABLE */
+
+  .orders-panel .panel-title {
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+  .order-total-badge {
+    flex-shrink: 0;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 400px) {
+
+  .customer-details-page {
+    padding: 10px;
+  }
+
+  .customer-title h1 {
+    font-size: 18px;
+  }
+
+  .customer-title p {
+    font-size: 9px;
+  }
+
+  .customer-large-avatar {
+    width: 39px;
+    height: 39px;
+
+    font-size: 15px;
+  }
+
+  .customer-info-item {
+    padding: 13px;
+  }
+
+  .customer-info-item span {
+    font-size: 9px;
+  }
+
+  .customer-info-item strong {
+    font-size: 11px;
+  }
+
+  .summary-content {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  .address-content p {
+    font-size: 10px;
+  }
+
+  .customer-orders-table {
+    min-width: 680px;
+  }
+
+}
+
+
+/* ==========================================
+   VERY SMALL DEVICES
+========================================== */
+
+@media (max-width: 320px) {
+
+  .customer-details-page {
+    padding: 8px;
+  }
+
+  .customer-large-avatar {
+    width: 36px;
+    height: 36px;
+
+    font-size: 14px;
+  }
+
+  .customer-title h1 {
+    font-size: 17px;
+  }
+
+  .back-btn {
+    font-size: 11px;
+  }
+
+  .customer-info-item {
+    padding: 11px;
+  }
+
+  .panel-title {
+    padding: 11px;
+  }
+
+}

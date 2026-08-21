@@ -122,6 +122,15 @@ export async function PUT(
       ? Number(formData.get("discount_price"))
       : null;
 
+    const shipping_cost = Number(formData.get("shipping_cost") ?? 0);
+
+    if (isNaN(shipping_cost) || shipping_cost < 0) {
+      return NextResponse.json(
+        { success: false, message: "Shipping cost must be a non-negative number." },
+        { status: 400 }
+      );
+    }
+
     const stock = formData.get("stock")
       ? Number(formData.get("stock"))
       : 0;
@@ -158,17 +167,18 @@ export async function PUT(
         description=$5,
         price=$6,
         discount_price=$7,
-        stock=$8,
-        sku=$9,
-        featured=$10,
-        best_seller=$11,
-        new_arrival=$12,
-        on_sale=$13,
-        status=$14,
-        meta_title=$15,
-        meta_description=$16,
+        shipping_cost=$8,
+        stock=$9,
+        sku=$10,
+        featured=$11,
+        best_seller=$12,
+        new_arrival=$13,
+        on_sale=$14,
+        status=$15,
+        meta_title=$16,
+        meta_description=$17,
         updated_at=CURRENT_TIMESTAMP
-      WHERE id=$17
+      WHERE id=$18
       `,
       [
         category_id,
@@ -178,6 +188,7 @@ export async function PUT(
         description,
         price,
         discount_price,
+        shipping_cost,
         stock,
         sku,
         featured,

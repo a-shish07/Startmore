@@ -11,6 +11,7 @@ export async function GET() {
           p.description,
           p.price,
           p.discount_price,
+          p.shipping_cost,
           p.stock,
           p.featured,
           p.best_seller,

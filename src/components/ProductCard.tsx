@@ -31,11 +31,23 @@ export default function ProductCard({ product, onNavigate }: ProductCardProps) {
 
   const active = isFavorite(product.id);
 
-  const handleQuickAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    addToCart(product);
-    show(`${product.name} added to cart!`);
+ const handleQuickAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.stopPropagation();
+
+  const cartProduct = {
+    ...product,
+    images:
+      product.images?.length > 0
+        ? product.images
+        : product.image_url
+        ? [{ image_url: product.image_url }]
+        : [],
   };
+
+  addToCart(cartProduct);
+
+  show(`${product.name} added to cart!`);
+};
 
   const handleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

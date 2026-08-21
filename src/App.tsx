@@ -48,6 +48,13 @@ import EditProduct from "./admin/pages/Products/EditProduct";
 import SizeList from "./admin/pages/Sizes/SizeList";
 import AddSize from "./admin/pages/Sizes/AddSize";
 import EditSize from "./admin/pages/Sizes/EditSize";
+import OrderList from "./admin/pages/Orders/OrderList";
+import OrderDetails from "./admin/pages/Orders/OrderDetails";
+import CustomerList from "./admin/pages/Customers/CustomerList";
+import CustomerDetails from "./admin/pages/Customers/CustomerDetails";
+import UserList from "./admin/pages/Users/UserList";
+import UserDetails from "./admin/pages/Users/UserDetails";
+
 
 type Page =
   | "home" | "products" | "detail" | "cart" | "checkout" | "success" | "about" | "contact" | "favorites"
@@ -217,7 +224,12 @@ const showFooter =
   <Route path="/admin/sizes" element={<SizeList />} />
 <Route path="/admin/sizes/add" element={<AddSize />} />
 <Route path="/admin/sizes/edit/:id" element={<EditSize />} />
-
+<Route path="orders" element={<OrderList />} />
+<Route path="orders/:id" element={<OrderDetails />} />
+<Route path="customers" element={<CustomerList />} />
+<Route path="customers/:id" element={<CustomerDetails />} />
+<Route path="users" element={<UserList />} />
+<Route path="users/:id" element={<UserDetails />} />
 </Route>
 
 

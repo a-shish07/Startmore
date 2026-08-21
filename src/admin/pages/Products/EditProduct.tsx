@@ -59,6 +59,7 @@ const EditProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [discountPrice, setDiscountPrice] = useState("");
+  const [shippingCost, setShippingCost] = useState("0");
   const [stock, setStock] = useState("");
   const [sku, setSku] = useState("");
   const [featured, setFeatured] = useState(false);
@@ -143,6 +144,7 @@ const EditProduct = () => {
       setDescription(product.description || "");
       setPrice(product.price);
       setDiscountPrice(product.discount_price || "");
+      setShippingCost(product.shipping_cost ?? "0");
       setStock(product.stock);
       setSku(product.sku || "");
       setFeatured(product.featured);
@@ -301,6 +303,7 @@ const EditProduct = () => {
       formData.append("description", description);
       formData.append("price", price);
       formData.append("discount_price", discountPrice);
+      formData.append("shipping_cost", shippingCost);
       formData.append("stock", stock);
       formData.append("sku", sku);
       formData.append("featured", featured.toString());
@@ -472,6 +475,20 @@ const EditProduct = () => {
             value={discountPrice}
             onChange={(e) => setDiscountPrice(e.target.value)}
           />
+        </div>
+
+        {/* Shipping */}
+        <div className="form-group full-width">
+          <label>Shipping Cost per Item</label>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={shippingCost}
+            onChange={(e) => setShippingCost(e.target.value)}
+            required
+          />
+          <small>Charged once for each unit of this product in the order.</small>
         </div>
 
         {/* Stock */}
