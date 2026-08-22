@@ -79,7 +79,7 @@ export async function GET(
       `
       SELECT
           i.id,
-          i.url AS image_url
+          '/api/images/' || i.id AS image_url
 
       FROM product_images pi
 

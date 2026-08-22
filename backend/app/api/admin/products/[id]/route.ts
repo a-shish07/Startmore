@@ -46,7 +46,7 @@ export async function GET(
         pi.id,
         pi.image_id,
         pi.sort_order,
-        i.url
+        '/api/images/' || i.id AS url
       FROM product_images pi
       JOIN images i
         ON pi.image_id = i.id

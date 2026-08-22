@@ -81,7 +81,7 @@ export async function GET(
           p.name,
           p.slug,
 
-          i.url AS image_url
+          CASE WHEN i.id IS NULL THEN NULL ELSE '/api/images/' || i.id END AS image_url
 
       FROM order_items oi
 

@@ -329,7 +329,7 @@ export async function GET() {
         ) AS sizes,
 
         (
-          SELECT i.url
+          SELECT '/api/images/' || i.id
           FROM product_images pi
           JOIN images i
             ON pi.image_id = i.id
@@ -557,7 +557,7 @@ export async function POST(req: NextRequest) {
         {
           success: false,
           message:
-            "Category, shape, product name, price and SKU are required.",
+            "Category, shape, product name, price,slug and SKU are required.",
         },
         {
           status: 400,

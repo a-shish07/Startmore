@@ -21,7 +21,7 @@ export async function GET(
         s.name,
         s.slug,
         s.image_id,
-        i.url AS image_url,
+        CASE WHEN i.id IS NULL THEN NULL ELSE '/api/images/' || i.id END AS image_url,
         s.status,
         s.created_at
       FROM shapes s

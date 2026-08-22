@@ -345,7 +345,7 @@ setFeaturedProducts(featured.slice(0, 4));
           onNavigate("products");
         }}
       >
-        <img
+        {shape.image_url ? <img
           src={`${API_URL}${shape.image_url}`}
           alt={shape.name}
           loading="lazy"
@@ -355,7 +355,7 @@ setFeaturedProducts(featured.slice(0, 4));
             objectFit: "cover",
             display: "block",
           }}
-        />
+        /> : <div className="cat-image-placeholder">Image coming soon</div>}
 
         <div className="cat-arrow">→</div>
 

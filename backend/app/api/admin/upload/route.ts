@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
-import pool from "@/lib/db";
+import { storeImage } from "@/lib/image-storage";
 
 /* ==========================================
    UPLOAD IMAGE
@@ -29,85 +27,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    /* Upload Folder */
-
-    const uploadDir = path.join(
-      process.cwd(),
-      "public",
-      "uploads",
-      folder
-    );
-
-    await mkdir(uploadDir, {
-      recursive: true,
-    });
-
-    /* Safe File Name */
-
-    const safeName = file.name.replace(
-      /[^a-zA-Z0-9.-]/g,
-      "_"
-    );
-
-    const fileName =
-      `${Date.now()}-${safeName}`;
-
-    const filePath = path.join(
-      uploadDir,
-      fileName
-    );
-
-    /* Save File */
-
-    const bytes = await file.arrayBuffer();
-
-    const buffer = Buffer.from(bytes);
-
-    await writeFile(filePath, buffer);
-
-    /* URL */
-
-    const image_url =
-      `/uploads/${folder}/${fileName}`;
-
-    /* Save Image Record */
-
-    const imageResult = await pool.query(
-      `
-      INSERT INTO images
-      (
-        file_name,
-        original_name,
-        storage_provider,
-        url,
-        public_id,
-        folder,
-        size,
-        mime_type
-      )
-      VALUES
-      (
-        $1,$2,$3,$4,$5,$6,$7,$8
-      )
-      RETURNING *
-      `,
-      [
-        fileName,
-        file.name,
-        "Local Storage",
-        image_url,
-        null,
-        folder,
-        file.size,
-        file.type,
-      ]
-    );
+    const image = await storeImage(file, folder);
 
     return NextResponse.json(
       {
         success: true,
 
-        image: imageResult.rows[0],
+        image,
       },
       {
         status: 201,

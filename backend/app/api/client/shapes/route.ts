@@ -8,7 +8,7 @@ export async function GET() {
         s.id,
         s.name,
         s.slug,
-        i.url AS image_url
+        CASE WHEN i.id IS NULL THEN NULL ELSE '/api/images/' || i.id END AS image_url
       FROM shapes s
       LEFT JOIN images i
         ON s.image_id = i.id

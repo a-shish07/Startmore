@@ -14,7 +14,7 @@ export async function GET() {
         c.name,
         c.slug,
         c.image_id,
-        i.url AS image_url,
+        CASE WHEN i.id IS NULL THEN NULL ELSE '/api/images/' || i.id END AS image_url,
         c.status,
         c.created_at
       FROM categories c

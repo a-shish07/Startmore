@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { imageProxyPath, storeImage } from "@/lib/image-storage";
 
 /*
 ==========================================
@@ -85,30 +84,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const uploadDir = path.join(
-      process.cwd(),
-      "public",
-      "uploads",
-      "banners"
-    );
-
-    await mkdir(uploadDir, {
-      recursive: true,
-    });
-
-    const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-
-    const fileName = `${Date.now()}-${safeName}`;
-
-    const filePath = path.join(uploadDir, fileName);
-
-    const bytes = await file.arrayBuffer();
-
-    const buffer = Buffer.from(bytes);
-
-    await writeFile(filePath, buffer);
-
-    const image_url = `/uploads/banners/${fileName}`;
+    const image = await storeImage(file, "banners");
+    const image_url = imageProxyPath(image.id);
 
     const result = await pool.query(
       `

@@ -364,7 +364,9 @@ export async function PUT(
       ========================================== */
 
       finalImageUrl =
-        uploadData.image_url;
+        uploadData.image?.id
+          ? `/api/images/${uploadData.image.id}`
+          : existingImageUrl;
     }
 
 
