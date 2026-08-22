@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://startmore.vercel.app",
   "https://artemore-ecommerce.vercel.app",
 ];
 
