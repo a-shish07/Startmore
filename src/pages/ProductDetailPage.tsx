@@ -269,7 +269,7 @@ const galleryBlock = (
         <i
           className={isFav ? "ri-heart-3-fill" : "ri-heart-line"}
           style={{
-            fontSize: "16px",
+            fontSize: "24px",
             color: isFav ? "#e63946" : "#aaa",
           }}
         />
@@ -291,7 +291,7 @@ const galleryBlock = (
 
       <span
         style={{
-          fontSize: "13px",
+          fontSize: "15px",
           color: "var(--text-muted)",
         }}
       >
@@ -310,7 +310,7 @@ const galleryBlock = (
     </div>
     <div
   style={{
-    fontSize: "13px",
+    fontSize: "15px",
     color: "var(--text-muted)",
     marginTop: "8px",
     marginBottom: "12px",
@@ -389,7 +389,7 @@ const galleryBlock = (
         {/* Score + stars + count — top row */}
         <div className="rating-top">
           <span className="rating-score">{Number(product.rating || 0).toFixed(1)}</span>
-          <StarRating rating={Math.round(Number(product.rating || 0))} size={13} />
+          <StarRating rating={Math.round(Number(product.rating || 0))} size={15} />
           <span className="rating-count">{product.review_count} reviews</span>
         </div>
         {/* Bars — stacked below, full width */}
@@ -640,7 +640,6 @@ const galleryBlock = (
                 { title: "100% Handmade", sub: "crafted in our studio", icon: "✦" },
                 { title: "Reusable", sub: "up to 10+ wears", icon: "ri-refresh-line" },
                 { title: "Application Kit", sub: "& tabs included", icon: "ri-checkbox-line" },
-                { title: "Trusted by 1000+", sub: "happy customers", icon: "ri-heart-line" },
               ].map((f, i) => (
                 <div key={i} className="feature-item">
                   <div className="feature-icon">
@@ -663,7 +662,8 @@ const galleryBlock = (
               {[
                 { title: "Secure Checkout", sub: "SSL encrypted", icon: "ri-lock-line" },
                 { title: "30-Days Returns", sub: "easy & hassle-free", icon: "ri-arrow-go-back-line" },
-                { title: "Free Shipping", sub: "on orders over £50", icon: "ri-checkbox-line" },
+                // { title: "Free Shipping", sub: "on orders over £50", icon: "ri-checkbox-line" },
+                 { title: "Trusted by 1000+", sub: "happy customers", icon: "ri-heart-line" },
                             ].map((f, i) => (
                 <div key={i} className="feature-item">
                   <div className="feature-icon">
@@ -804,7 +804,7 @@ const galleryBlock = (
                   { title: "100% Handmade", sub: "crafted in our studio", icon: "✦" },
                   { title: "Reusable", sub: "up to 10+ wears", icon: "ri-refresh-line" },
                   { title: "Application Kit", sub: "& tabs included", icon: "ri-checkbox-line" },
-                  { title: "Trusted by 1000+", sub: "happy customers", icon: "ri-heart-line" },
+                 
                 ].map((f, i) => (
                   <div key={i} className="m-feat-item">
                     <span className="m-feat-icon">
@@ -852,10 +852,10 @@ const galleryBlock = (
         ══════════════════════════════════════════ */
         .wishlist-btn {
           background: none;
-          border: 1px solid #ddd;
-          border-radius: 50%;
-          width: 34px;
-          height: 34px;
+          border: 2px solid #c9a84c;
+          border-radius: 60%;
+          width: 40px;
+          height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;

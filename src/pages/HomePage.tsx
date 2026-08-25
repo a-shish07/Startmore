@@ -371,6 +371,87 @@ setFeaturedProducts(featured.slice(0, 4));
   </div>
 </section>
 
+ {/* ================= SHOP BY CATEGORY ================= */}
+{/* ================= SHOP BY CATEGORY ================= */}
+<section className="section white">
+  <div className="section-header reveal">
+    <p className="section-label">Explore</p>
+
+    <h2 className="section-title">Shop by Category</h2>
+
+    <p className="section-sub">
+      Discover our handcrafted collections, made to complement every style
+      and occasion.
+    </p>
+  </div>
+
+  <div className="categories-grid">
+    {[
+      {
+  name: "Press-On Nails",
+  description: "Handcrafted designs made to elevate your everyday look.",
+  image: "/hero-nail.png",
+  value: "Press-On Nails",
+},
+      {
+        name: "Henna Stencils",
+        description:
+          "Beautiful stencil designs for effortless henna artistry.",
+        image: "/gold-nails.png",
+        value: "Henna Stencils",
+      },
+      {
+        name: "Bridal Jewellery",
+        description:
+          "Elegant pieces crafted for your special occasions.",
+        image: "/jewelry.png",
+        value: "Bridal Jewellery",
+      },
+      {
+        name: "Fashion",
+        description:
+          "Everything you need for the perfect nail application.",
+        image: "/hero-bg.jpg",
+        value: "Fashion",
+      },
+    ].map((category, i) => (
+      <div
+        key={category.name}
+        className={`cat-card reveal reveal-delay-${i + 1}`}
+        onClick={() => {
+          localStorage.setItem(
+            "selectedCategory",
+            category.value
+          );
+          onNavigate("products");
+        }}
+      >
+        <img
+          src={category.image}
+          alt={category.name}
+          loading="lazy"
+          style={{
+            width: "100%",
+            height: "260px",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+
+        <div className="cat-arrow">→</div>
+
+        <div className="cat-info">
+          <div className="cat-name">{category.name}</div>
+
+          <div className="cat-count">
+            {category.description}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
       {/* ================= FEATURED ================= */}
       <section className="section cream">
         <div className="section-header reveal">

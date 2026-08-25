@@ -97,7 +97,7 @@ export default function ProductCard({ product, onNavigate }: ProductCardProps) {
 
           {product.best_seller && (
             <span className="product-badge badge-best">
-              BEST
+              {/* BEST */}
             </span>
           )}
 
