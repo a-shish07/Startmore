@@ -18,6 +18,7 @@ import SuccessPage from "./pages/SuccessPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import Login from "./pages/login";
+import { ForgotPassword, ResetPassword } from "./pages/AuthRecovery";
 import Dashboard from "./pages/Dashboard";
 import SizeGuide from "./pages/SizeGuide";
 import HowToApply from "./pages/HowToApply";
@@ -145,20 +146,21 @@ function AppInner() {
 
   const isAdminPage = location.pathname.startsWith("/admin");
 
-const showFooter =
+  const isAuthPage = ["/login", "/forgot-password", "/reset-password"].includes(location.pathname);
+  const showFooter =
   !isAdminPage &&
   page !== "checkout" &&
   page !== "success" &&
-  page !== "login";
+  !isAuthPage;
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <ScrollToTop />
       {/* Hide cursor on mobile later inside component */}
       <CustomCursor />
-{!isAdminPage && page !== "login" && <AnnouncementBar />}
+{!isAdminPage && !isAuthPage && <AnnouncementBar />}
 
-{!isAdminPage && page !== "login" && (
+{!isAdminPage && !isAuthPage && (
   <Header
     currentPage={page as any}
     onNavigate={navigate as any}
@@ -180,6 +182,8 @@ const showFooter =
           <Route path="/about" element={<AboutPage onNavigate={navigate as any} />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<Login onNavigate={navigate as any} />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/size-guide" element={<SizeGuide />} />
           <Route path="/how-to-apply" element={<HowToApply />} />

@@ -9,6 +9,61 @@ const EMAIL_FROM =
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>'"]/g, (character) => {
+    const entities: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    };
+
+    return entities[character];
+  });
+}
+
+export async function sendPasswordResetEmail({
+  customerEmail,
+  customerName,
+  resetUrl,
+}: {
+  customerEmail: string;
+  customerName?: string | null;
+  resetUrl: string;
+}) {
+  const greeting = customerName
+    ? `Hello ${escapeHtml(customerName)},`
+    : "Hello,";
+
+  const result = await resend.emails.send({
+    from: EMAIL_FROM,
+    to: customerEmail,
+    subject: "SR Artémore — Reset your password",
+    html: `
+      <!DOCTYPE html>
+      <html lang="en">
+        <body style="margin:0;padding:0;background:#f7f3f5;font-family:Arial,Helvetica,sans-serif;color:#28191f;">
+          <div style="max-width:600px;margin:32px auto;background:#fff;padding:40px;border-radius:16px;">
+            <p style="margin:0 0 28px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#8b5a70;">SR Artémore</p>
+            <h1 style="margin:0 0 20px;font-size:28px;font-weight:600;">Reset your password</h1>
+            <p style="line-height:1.6;">${greeting}</p>
+            <p style="line-height:1.6;">We received a request to reset your password. Use the button below to choose a new one.</p>
+            <p style="margin:32px 0;"><a href="${escapeHtml(resetUrl)}" style="display:inline-block;background:#28191f;color:#fff;padding:14px 24px;border-radius:8px;text-decoration:none;font-weight:600;">Reset Password</a></p>
+            <p style="line-height:1.6;color:#66555c;">This link expires in 30 minutes and can only be used once. If you did not request a reset, you can safely ignore this email.</p>
+          </div>
+        </body>
+      </html>
+    `,
+  });
+
+  if (result.error) {
+    throw new Error(result.error.message || "Failed to send password reset email");
+  }
+
+  return result;
+}
+
 interface OrderEmailData {
   orderId: string;
   customerName: string;

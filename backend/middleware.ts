@@ -80,5 +80,7 @@ export const config = {
     "/api/:path*",
     "/login",
     "/register",
+    "/forgot-password",
+    "/reset-password",
   ],
 };

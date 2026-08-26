@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { loginUser, registerUser } from "../api/auth";
 
@@ -289,6 +290,12 @@ onNavigate("dashboard");
       />
     </div>
   </div>
+
+  {isLogin && (
+    <div className="forgot-password-row">
+      <Link to="/forgot-password">Forgot password?</Link>
+    </div>
+  )}
 
   {!isLogin && (
     <div className="input-group-new">
@@ -610,6 +617,24 @@ onNavigate("dashboard");
 
         .password-wrapper {
           position: relative;
+        }
+
+        .forgot-password-row {
+          margin: -12px 0 18px;
+          text-align: right;
+        }
+
+        .forgot-password-row a {
+          color: var(--gold);
+          font-size: 12px;
+          font-weight: 500;
+          text-decoration: none;
+        }
+
+        .forgot-password-row a:hover,
+        .forgot-password-row a:focus-visible {
+          text-decoration: underline;
+          text-underline-offset: 3px;
         }
 
         .pw-toggle {

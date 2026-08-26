@@ -21,3 +21,8 @@ export const loginUser = (
     password,
   });
 };
+
+export const forgotPassword = (email: string) => api.post("/forgot-password", { email });
+
+export const resetPassword = (token: string, password: string) =>
+  api.post("/reset-password", { token, password });
