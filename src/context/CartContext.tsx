@@ -40,7 +40,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | null>(null);
 
 const CART_STORAGE_KEY = "sr_artmore_cart";
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export function CartProvider({
   children,
@@ -78,6 +78,20 @@ export function CartProvider({
     } catch (error) {
       console.error("Failed to save cart to localStorage:", error);
     }
+  }, [items]);
+
+  // Persist carts for signed-in customers as well. This is intentionally a
+  // best-effort mirror: anonymous browser-only carts never become email targets.
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    let userId: number | undefined;
+    try { userId = JSON.parse(savedUser || "{}").id || Number(localStorage.getItem("user_id")); } catch { userId = Number(localStorage.getItem("user_id")); }
+    if (!userId || !API_URL) return;
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => {
+      fetch(`${API_URL}/api/client/cart`, { method: "PUT", headers: { "Content-Type": "application/json", "X-User-Id": String(userId) }, body: JSON.stringify({ items }), signal: controller.signal }).catch(() => undefined);
+    }, 700);
+    return () => { window.clearTimeout(timeout); controller.abort(); };
   }, [items]);
 
   // Always refresh shipping from the database so saved carts cannot use an

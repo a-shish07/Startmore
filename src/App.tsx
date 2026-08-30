@@ -55,6 +55,7 @@ import CustomerList from "./admin/pages/Customers/CustomerList";
 import CustomerDetails from "./admin/pages/Customers/CustomerDetails";
 import UserList from "./admin/pages/Users/UserList";
 import UserDetails from "./admin/pages/Users/UserDetails";
+import AbandonedCartEmails from "./admin/pages/AbandonedCartEmails";
 
 
 type Page =
@@ -234,6 +235,7 @@ function AppInner() {
 <Route path="customers/:id" element={<CustomerDetails />} />
 <Route path="users" element={<UserList />} />
 <Route path="users/:id" element={<UserDetails />} />
+<Route path="abandoned-cart-emails" element={<AbandonedCartEmails />} />
 </Route>
 
 

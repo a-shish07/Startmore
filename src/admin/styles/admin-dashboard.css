@@ -1020,3 +1020,1995 @@
   }
 
 }
+/* =========================================================
+   ANALYTICS DASHBOARD
+========================================================= */
+
+.analytics-dashboard {
+  padding: 22px;
+  font-family: "Inter", sans-serif;
+  color: #292530;
+}
+
+/* =========================================================
+   DATE TOOLBAR
+========================================================= */
+
+.date-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  background: #fff;
+  border: 1px solid #e8e2dc;
+  border-radius: 14px;
+
+  padding: 10px 12px;
+  margin-bottom: 28px;
+
+  box-shadow: 0 5px 20px rgba(40, 30, 20, 0.04);
+}
+
+.range-current {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 0 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #302b38;
+}
+
+.range-current svg {
+  color: #51477c;
+}
+
+.range-presets {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  border-left: 1px solid #ebe5df;
+  padding-left: 9px;
+}
+
+.range-presets button,
+.date-toolbar button {
+  border: 0;
+  background: transparent;
+
+  padding: 9px 12px;
+
+  border-radius: 9px;
+
+  color: #514b57;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.range-presets button:hover {
+  background: #f5f2f8;
+}
+
+.range-presets button.active {
+  background: #51477c;
+  color: #fff;
+}
+
+.custom-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #817971;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.custom-date input {
+  border: 1px solid #e2dbd4;
+  border-radius: 8px;
+
+  background: #fff;
+
+  padding: 8px 9px;
+
+  color: #39333d;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  outline: none;
+}
+
+.custom-date input:focus {
+  border-color: #8b82ad;
+  box-shadow: 0 0 0 3px rgba(81, 71, 124, 0.08);
+}
+
+.refresh-button {
+  margin-left: auto;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e4ddd6 !important;
+  background: #fff !important;
+
+  border-radius: 9px !important;
+
+  color: #51477c !important;
+}
+
+.refresh-button:hover {
+  background: #f6f3fa !important;
+}
+
+.refresh-button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.section-heading,
+.analytics-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+
+  color: #756f96 !important;
+
+  font-size: 10px !important;
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+}
+
+.section-heading h2,
+.analytics-section-header h2 {
+  margin: 0;
+
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.section-heading p {
+  margin: 4px 0 0;
+
+  color: #827a73;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   OVERVIEW
+========================================================= */
+
+.overview-section {
+  margin-bottom: 34px;
+}
+
+.overview-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.overview-card {
+  position: relative;
+
+  min-height: 125px;
+
+  padding: 17px;
+
+  background: #fff;
+
+  border: 1px solid #e9e3dd;
+  border-radius: 15px;
+
+  box-shadow:
+    0 7px 20px rgba(40, 30, 20, 0.035);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.overview-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 28px rgba(40, 30, 20, 0.07);
+}
+
+.overview-icon {
+  position: absolute;
+
+  top: 15px;
+  right: 15px;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #f1eef9;
+
+  color: #51477c;
+
+  font-size: 14px;
+}
+
+.overview-card p {
+  margin: 2px 0 8px;
+
+  color: #746d67;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.overview-card strong {
+  display: block;
+
+  color: #28232d;
+
+  font-size: 23px;
+  line-height: 1.2;
+
+  font-weight: 750;
+
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   ANALYTICS SECTION
+========================================================= */
+
+.analytics-section {
+  margin-bottom: 30px;
+}
+
+.analytics-section-header {
+  align-items: center;
+}
+
+.group-by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #7d756e;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.group-by select {
+  border: 1px solid #e3ddd7;
+  border-radius: 9px;
+
+  background: #fff;
+
+  padding: 8px 12px;
+
+  color: #39333e;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  outline: none;
+}
+
+/* =========================================================
+   CHART GRID
+========================================================= */
+
+.analytics-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+/* =========================================================
+   ANALYTICS CARD
+========================================================= */
+
+.analytics-card {
+  position: relative;
+
+  min-height: 285px;
+
+  padding: 20px;
+
+  background: #fff;
+
+  border: 1px solid #e8e2dc;
+  border-radius: 17px;
+
+  box-shadow:
+    0 8px 24px rgba(45, 36, 28, 0.045);
+
+  overflow: hidden;
+}
+
+.analytics-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+}
+
+.analytics-card-label {
+  margin: 0 0 5px;
+
+  color: #6f6862;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.analytics-card h3 {
+  margin: 0;
+
+  color: #29242f;
+
+  font-size: 23px;
+  font-weight: 750;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.analytics-card-icon {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+}
+
+.analytics-purple .analytics-card-icon {
+  background: #f0edfa;
+  color: #63558f;
+}
+
+.analytics-blue .analytics-card-icon {
+  background: #edf5fc;
+  color: #4384bb;
+}
+
+.analytics-orange .analytics-card-icon {
+  background: #fff5e8;
+  color: #dc8a22;
+}
+
+.analytics-green .analytics-card-icon {
+  background: #eaf8f0;
+  color: #3a9c68;
+}
+
+.analytics-pink .analytics-card-icon {
+  background: #fff0f5;
+  color: #df628c;
+}
+
+.analytics-mini-chart {
+  height: 190px;
+
+  margin-top: 13px;
+}
+
+/* =========================================================
+   CHART
+========================================================= */
+
+.analytics-chart {
+  width: 100%;
+  height: 100%;
+}
+
+.analytics-chart-empty {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #938a83;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   BOTTOM DASHBOARD
+========================================================= */
+
+.bottom-dashboard-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.6fr)
+    minmax(300px, 0.8fr);
+
+  gap: 15px;
+}
+
+.dashboard-panel {
+  background: #fff;
+
+  border: 1px solid #e8e2dc;
+  border-radius: 17px;
+
+  box-shadow:
+    0 8px 24px rgba(45, 36, 28, 0.04);
+
+  padding: 21px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 17px;
+}
+
+.panel-header h3 {
+  margin: 0 0 4px;
+
+  font-size: 16px;
+}
+
+.panel-header p {
+  margin: 0;
+
+  color: #8a827b;
+
+  font-size: 11px;
+}
+
+.view-all-btn {
+  padding: 7px 11px;
+
+  border-radius: 8px;
+
+  background: #f3f0f8;
+
+  color: #51477c;
+
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.dashboard-table-wrapper {
+  overflow-x: auto;
+}
+
+.dashboard-orders-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 12px;
+}
+
+.dashboard-orders-table th {
+  padding: 10px;
+
+  border-bottom: 1px solid #eee9e4;
+
+  text-align: left;
+
+  color: #8b837c;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-orders-table td {
+  padding: 12px 10px;
+
+  border-bottom: 1px solid #f2eeea;
+
+  color: #5e5752;
+}
+
+.dashboard-orders-table td strong {
+  color: #302a34;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #f0ece7;
+
+  color: #69615d;
+
+  font-size: 13px;
+}
+
+.status-row strong {
+  color: #302a35;
+}
+
+.fulfilled-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 15px;
+
+  padding: 11px;
+
+  border-radius: 9px;
+
+  background: #edf6ef;
+
+  color: #4d765e;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   EMPTY / ERROR
+========================================================= */
+
+.chart-empty {
+  min-height: 100px;
+
+  display: grid;
+  place-items: center;
+
+  color: #8b837d;
+
+  font-size: 12px;
+}
+
+.analytics-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 18px;
+
+  background: #fff;
+
+  border: 1px solid #e7dfd8;
+  border-radius: 13px;
+
+  margin-bottom: 20px;
+}
+
+.analytics-message span {
+  color: #766e68;
+}
+
+.analytics-message button {
+  margin-left: auto;
+
+  border: 0;
+
+  background: #51477c;
+  color: #fff;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+/* =========================================================
+   LARGE TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 1350px) {
+
+  .analytics-dashboard {
+    padding: 20px;
+  }
+
+  .overview-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .analytics-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   768px - 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .analytics-dashboard {
+    padding: 18px;
+  }
+
+  /* -------------------------
+     DATE TOOLBAR
+  ------------------------- */
+
+  .date-toolbar {
+    gap: 8px;
+    padding: 9px;
+  }
+
+  .range-current {
+    font-size: 12px;
+  }
+
+  .range-presets button {
+    padding: 8px 10px;
+  }
+
+  /* -------------------------
+     OVERVIEW
+  ------------------------- */
+
+  .overview-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .overview-card {
+    min-height: 118px;
+    padding: 15px;
+  }
+
+  .overview-card strong {
+    font-size: 21px;
+  }
+
+  /* -------------------------
+     CHARTS
+  ------------------------- */
+
+  .analytics-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .analytics-card {
+    min-height: 260px;
+    padding: 17px;
+  }
+
+  .analytics-mini-chart {
+    height: 170px;
+  }
+
+  /* -------------------------
+     BOTTOM
+  ------------------------- */
+
+  .bottom-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   600px - 767px
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .analytics-dashboard {
+    padding: 14px;
+  }
+
+  /* =======================================================
+     DATE FILTER
+  ======================================================= */
+
+  .date-toolbar {
+    display: grid;
+
+    grid-template-columns:
+      1fr auto;
+
+    gap: 8px;
+
+    padding: 10px;
+
+    margin-bottom: 22px;
+
+    border-radius: 13px;
+  }
+
+  .range-current {
+    min-width: 0;
+
+    padding: 5px 4px;
+
+    font-size: 12px;
+  }
+
+  .range-current span {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+  }
+
+  .range-presets {
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    width: 100%;
+
+    border-left: 0;
+
+    padding-left: 0;
+
+    background: #f8f6fa;
+
+    border-radius: 9px;
+
+    padding: 3px;
+  }
+
+  .range-presets button {
+    flex: 1;
+
+    min-height: 36px;
+
+    padding: 8px 7px;
+
+    font-size: 11px;
+  }
+
+  .custom-date {
+    width: 100%;
+
+    justify-content: space-between;
+
+    min-width: 0;
+
+    padding: 2px 3px;
+  }
+
+  .custom-date input {
+    width: 150px;
+
+    min-width: 0;
+
+    padding: 8px;
+
+    font-size: 11px;
+  }
+
+  .refresh-button {
+    width: 38px;
+
+    height: 38px;
+
+    margin-left: auto;
+  }
+
+
+  /* =======================================================
+     SECTION HEADINGS
+  ======================================================= */
+
+  .section-heading,
+  .analytics-section-header {
+    margin-bottom: 12px;
+  }
+
+  .section-heading h2,
+  .analytics-section-header h2 {
+    font-size: 18px;
+  }
+
+  .section-heading p {
+    font-size: 11px;
+  }
+
+  .group-by {
+    display: none;
+  }
+
+
+  /* =======================================================
+     OVERVIEW
+  ======================================================= */
+
+  .overview-section {
+    margin-bottom: 27px;
+  }
+
+  .overview-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+  }
+
+  .overview-card {
+    min-height: 105px;
+
+    padding: 14px;
+
+    border-radius: 13px;
+  }
+
+  .overview-card p {
+    max-width: 70%;
+
+    margin-bottom: 7px;
+
+    font-size: 10px;
+  }
+
+  .overview-card strong {
+    font-size: 20px;
+  }
+
+  .overview-icon {
+    top: 12px;
+    right: 12px;
+
+    width: 31px;
+    height: 31px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+  }
+
+
+  /* =======================================================
+     ANALYTICS
+  ======================================================= */
+
+  .analytics-section {
+    margin-bottom: 25px;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+
+    gap: 11px;
+  }
+
+  .analytics-card {
+    min-height: 245px;
+
+    padding: 16px;
+
+    border-radius: 14px;
+  }
+
+  .analytics-card-label {
+    font-size: 11px;
+  }
+
+  .analytics-card h3 {
+    font-size: 21px;
+  }
+
+  .analytics-card-icon {
+    width: 32px;
+    height: 32px;
+
+    font-size: 12px;
+  }
+
+  .analytics-mini-chart {
+    height: 155px;
+
+    margin-top: 10px;
+  }
+
+
+  /* =======================================================
+     BOTTOM PANELS
+  ======================================================= */
+
+  .bottom-dashboard-grid {
+    grid-template-columns: 1fr;
+
+    gap: 11px;
+  }
+
+  .dashboard-panel {
+    padding: 16px;
+
+    border-radius: 14px;
+  }
+
+  .panel-header {
+    margin-bottom: 13px;
+  }
+
+  .panel-header h3 {
+    font-size: 15px;
+  }
+
+  .panel-header p {
+    font-size: 10px;
+  }
+
+  .view-all-btn {
+    padding: 7px 9px;
+
+    font-size: 10px;
+  }
+
+
+  /* =======================================================
+     TABLE
+  ======================================================= */
+
+  .dashboard-table-wrapper {
+    margin: 0 -4px;
+
+    padding: 0 4px;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dashboard-orders-table {
+    min-width: 520px;
+
+    font-size: 11px;
+  }
+
+  .dashboard-orders-table th {
+    padding: 9px 8px;
+
+    font-size: 9px;
+  }
+
+  .dashboard-orders-table td {
+    padding: 10px 8px;
+  }
+
+
+  /* =======================================================
+     STATUS
+  ======================================================= */
+
+  .status-row {
+    padding: 10px 0;
+
+    font-size: 12px;
+  }
+
+  .fulfilled-note {
+    padding: 10px;
+
+    font-size: 11px;
+  }
+
+
+  /* =======================================================
+     ERROR
+  ======================================================= */
+
+  .analytics-message {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    padding: 15px;
+
+    font-size: 12px;
+  }
+
+  .analytics-message button {
+    width: 100%;
+
+    margin-left: 0;
+
+    padding: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   480px AND BELOW
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .analytics-dashboard {
+    padding: 10px;
+  }
+
+
+  /* =======================================================
+     DATE FILTER
+  ======================================================= */
+
+  .date-toolbar {
+    grid-template-columns: 1fr 38px;
+
+    gap: 7px;
+
+    padding: 8px;
+
+    border-radius: 12px;
+  }
+
+  .range-current {
+    font-size: 11px;
+  }
+
+  .range-presets {
+    overflow-x: auto;
+
+    scrollbar-width: none;
+  }
+
+  .range-presets::-webkit-scrollbar {
+    display: none;
+  }
+
+  .range-presets button {
+    flex: 0 0 auto;
+
+    min-width: 92px;
+
+    min-height: 35px;
+
+    font-size: 10px;
+  }
+
+  .custom-date {
+    grid-column: 1 / -1;
+
+    display: grid;
+
+    grid-template-columns:
+      34px 1fr;
+
+    gap: 7px;
+  }
+
+  .custom-date input {
+    width: 100%;
+  }
+
+
+  /* =======================================================
+     OVERVIEW
+  ======================================================= */
+
+  .section-heading h2,
+  .analytics-section-header h2 {
+    font-size: 17px;
+  }
+
+  .overview-grid {
+    gap: 8px;
+  }
+
+  .overview-card {
+    min-height: 96px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+  }
+
+  .overview-card p {
+    margin-bottom: 6px;
+
+    font-size: 9.5px;
+  }
+
+  .overview-card strong {
+    font-size: 18px;
+  }
+
+  .overview-icon {
+    width: 29px;
+    height: 29px;
+
+    top: 10px;
+    right: 10px;
+
+    font-size: 11px;
+  }
+
+
+  /* =======================================================
+     ANALYTICS CARDS
+  ======================================================= */
+
+  .analytics-grid {
+    gap: 10px;
+  }
+
+  .analytics-card {
+    min-height: 225px;
+
+    padding: 14px;
+
+    border-radius: 13px;
+  }
+
+  .analytics-card-label {
+    font-size: 10px;
+
+    margin-bottom: 4px;
+  }
+
+  .analytics-card h3 {
+    font-size: 20px;
+  }
+
+  .analytics-card-icon {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+  }
+
+  .analytics-mini-chart {
+    height: 140px;
+
+    margin-top: 9px;
+  }
+
+
+  /* =======================================================
+     BOTTOM PANELS
+  ======================================================= */
+
+  .dashboard-panel {
+    padding: 14px;
+
+    border-radius: 13px;
+  }
+
+  .panel-header {
+    align-items: center;
+  }
+
+  .panel-header h3 {
+    font-size: 14px;
+  }
+
+  .panel-header p {
+    max-width: 220px;
+
+    line-height: 1.4;
+  }
+
+
+  /* =======================================================
+     STATUS
+  ======================================================= */
+
+  .status-row {
+    padding: 9px 0;
+
+    font-size: 11px;
+  }
+
+  .fulfilled-note {
+    font-size: 10px;
+
+    line-height: 1.4;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   360px AND BELOW
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .analytics-dashboard {
+    padding: 8px;
+  }
+
+  .overview-grid {
+    gap: 6px;
+  }
+
+  .overview-card {
+    min-height: 90px;
+
+    padding: 10px;
+  }
+
+  .overview-card strong {
+    font-size: 17px;
+  }
+
+  .overview-card p {
+    font-size: 9px;
+  }
+
+  .overview-icon {
+    width: 26px;
+    height: 26px;
+
+    top: 8px;
+    right: 8px;
+  }
+
+  .analytics-card {
+    min-height: 210px;
+
+    padding: 12px;
+  }
+
+  .analytics-mini-chart {
+    height: 130px;
+  }
+
+  .range-presets button {
+    min-width: 84px;
+  }
+
+}
+/* =========================================================
+   PREMIUM MOBILE DASHBOARD
+   Overrides previous mobile styles
+========================================================= */
+
+@media (max-width: 767px) {
+
+  /* -------------------------------------------------------
+     MAIN CONTAINER
+  ------------------------------------------------------- */
+
+  .analytics-dashboard {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 12px 30px;
+
+    overflow-x: hidden;
+  }
+
+
+  /* -------------------------------------------------------
+     DATE FILTER
+  ------------------------------------------------------- */
+
+  .date-toolbar {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 10px;
+
+    padding: 11px;
+
+    margin-bottom: 25px;
+
+    border-radius: 15px;
+
+    box-shadow:
+      0 4px 18px rgba(40, 30, 20, 0.045);
+  }
+
+  .range-current {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    padding: 3px 2px;
+
+    font-size: 12px;
+  }
+
+  .range-current span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  /* -------------------------------------------------------
+     PRESET BUTTONS
+  ------------------------------------------------------- */
+
+  .range-presets {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, 1fr);
+
+    gap: 4px;
+
+    padding: 4px;
+
+    border: 0;
+
+    background: #f7f5f9;
+
+    border-radius: 10px;
+  }
+
+  .range-presets button {
+    width: 100%;
+
+    min-width: 0;
+    min-height: 36px;
+
+    padding: 7px 4px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+  }
+
+
+  /* -------------------------------------------------------
+     CUSTOM DATE INPUTS
+  ------------------------------------------------------- */
+
+  .custom-date {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      35px minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 6px;
+
+    box-sizing: border-box;
+
+    font-size: 10px;
+  }
+
+  .custom-date input {
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    height: 36px;
+
+    padding: 7px 9px;
+
+    font-size: 11px;
+  }
+
+
+  /* -------------------------------------------------------
+     REFRESH BUTTON
+  ------------------------------------------------------- */
+
+  .refresh-button {
+    align-self: flex-end;
+
+    width: 38px;
+    height: 38px;
+
+    margin: 0;
+
+    flex-shrink: 0;
+  }
+
+
+  /* =======================================================
+     SECTION HEADINGS
+  ======================================================= */
+
+  .section-heading,
+  .analytics-section-header {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    text-align: center;
+
+    margin-bottom: 13px;
+  }
+
+  .section-heading > div,
+  .analytics-section-header > div:first-child {
+    width: 100%;
+  }
+
+  .section-heading h2,
+  .analytics-section-header h2 {
+    font-size: 18px;
+
+    line-height: 1.25;
+  }
+
+  .section-heading p {
+    font-size: 10.5px;
+
+    line-height: 1.4;
+  }
+
+  .eyebrow {
+    font-size: 9px !important;
+
+    letter-spacing: 1.4px;
+  }
+
+  .group-by {
+    display: none;
+  }
+
+
+  /* =======================================================
+     OVERVIEW
+  ======================================================= */
+
+  .overview-section {
+    width: 100%;
+
+    margin-bottom: 30px;
+  }
+
+  .overview-grid {
+
+    /* IMPORTANT:
+       Force grid to use entire mobile width */
+
+    width: 100%;
+    max-width: 100%;
+
+    box-sizing: border-box;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+
+  /* -------------------------------------------------------
+     OVERVIEW CARD
+  ------------------------------------------------------- */
+
+  .overview-card {
+
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    min-height: 108px;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    box-shadow:
+      0 5px 18px rgba(40, 30, 20, 0.045);
+  }
+
+  .overview-card p {
+
+    width: calc(100% - 35px);
+
+    margin: 0 0 8px;
+
+    color: #766e68;
+
+    font-size: 10px;
+
+    line-height: 1.3;
+  }
+
+  .overview-card strong {
+
+    font-size: 21px;
+
+    line-height: 1.15;
+
+    white-space: nowrap;
+  }
+
+  .overview-icon {
+
+    width: 32px;
+    height: 32px;
+
+    top: 12px;
+    right: 12px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+  }
+
+
+  /* =======================================================
+     ANALYTICS SECTION
+  ======================================================= */
+
+  .analytics-section {
+    width: 100%;
+
+    margin-bottom: 30px;
+  }
+
+  .analytics-section-header {
+    margin-bottom: 14px;
+  }
+
+
+  /* =======================================================
+     ANALYTICS GRID
+     
+     IMPORTANT:
+     FULL WIDTH ON MOBILE
+  ======================================================= */
+
+  .analytics-grid {
+
+    width: 100%;
+    max-width: 100%;
+
+    box-sizing: border-box;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr);
+
+    gap: 13px;
+  }
+
+
+  /* =======================================================
+     ANALYTICS CARD
+  ======================================================= */
+
+  .analytics-card {
+
+    /* THIS FIXES YOUR TINY GRAPH */
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    box-sizing: border-box;
+
+    min-height: 260px;
+
+    padding: 17px;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+      0 6px 22px rgba(45, 36, 28, 0.05);
+  }
+
+
+  /* -------------------------------------------------------
+     CARD HEADER
+  ------------------------------------------------------- */
+
+  .analytics-card-header {
+
+    width: 100%;
+
+    margin-bottom: 2px;
+  }
+
+  .analytics-card-label {
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+  }
+
+  .analytics-card h3 {
+
+    font-size: 22px;
+
+    line-height: 1.15;
+  }
+
+  .analytics-card-icon {
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+  }
+
+
+  /* =======================================================
+     CHART
+  ======================================================= */
+
+  .analytics-mini-chart {
+
+    width: 100%;
+    min-width: 0;
+
+    height: 175px;
+
+    margin-top: 12px;
+  }
+
+  .analytics-chart {
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+  }
+
+
+  /* =======================================================
+     BOTTOM PANELS
+  ======================================================= */
+
+  .bottom-dashboard-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 1fr);
+
+    gap: 12px;
+  }
+
+  .dashboard-panel {
+
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 16px;
+
+    border-radius: 14px;
+  }
+
+
+  /* =======================================================
+     ORDER TABLE
+  ======================================================= */
+
+  .dashboard-table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+  }
+
+  .dashboard-orders-table {
+
+    width: 100%;
+
+    min-width: 540px;
+
+    font-size: 11px;
+  }
+
+
+  /* =======================================================
+     STATUS
+  ======================================================= */
+
+  .status-row {
+
+    padding: 11px 0;
+
+    font-size: 12px;
+  }
+
+  .fulfilled-note {
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px;
+
+    font-size: 11px;
+
+    line-height: 1.35;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   480px
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .analytics-dashboard {
+    padding: 10px 9px 25px;
+  }
+
+
+  /* -------------------------------------------------------
+     DATE TOOLBAR
+  ------------------------------------------------------- */
+
+  .date-toolbar {
+    padding: 9px;
+
+    border-radius: 13px;
+
+    gap: 9px;
+  }
+
+  .range-current {
+    font-size: 11px;
+  }
+
+  .range-presets button {
+    min-height: 35px;
+
+    font-size: 10px;
+  }
+
+
+  /* -------------------------------------------------------
+     OVERVIEW
+  ------------------------------------------------------- */
+
+  .overview-grid {
+
+    width: 100%;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+  }
+
+  .overview-card {
+
+    min-height: 100px;
+
+    padding: 13px;
+  }
+
+  .overview-card p {
+
+    width: calc(100% - 30px);
+
+    font-size: 9.5px;
+
+    margin-bottom: 7px;
+  }
+
+  .overview-card strong {
+    font-size: 20px;
+  }
+
+  .overview-icon {
+
+    width: 30px;
+    height: 30px;
+
+    top: 10px;
+    right: 10px;
+
+    font-size: 11px;
+  }
+
+
+  /* -------------------------------------------------------
+     ANALYTICS
+  ------------------------------------------------------- */
+
+  .analytics-grid {
+    width: 100%;
+
+    grid-template-columns:
+      minmax(0, 1fr);
+
+    gap: 11px;
+  }
+
+  .analytics-card {
+
+    width: 100%;
+
+    min-height: 245px;
+
+    padding: 15px;
+  }
+
+  .analytics-card-label {
+    font-size: 10.5px;
+  }
+
+  .analytics-card h3 {
+    font-size: 21px;
+  }
+
+  .analytics-mini-chart {
+    height: 165px;
+
+    margin-top: 10px;
+  }
+
+
+  /* -------------------------------------------------------
+     BOTTOM
+  ------------------------------------------------------- */
+
+  .dashboard-panel {
+    padding: 14px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   360px
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .analytics-dashboard {
+    padding: 8px 7px 22px;
+  }
+
+  .date-toolbar {
+    padding: 8px;
+  }
+
+  .overview-grid {
+    gap: 7px;
+  }
+
+  .overview-card {
+
+    min-height: 94px;
+
+    padding: 12px;
+  }
+
+  .overview-card p {
+    font-size: 9px;
+  }
+
+  .overview-card strong {
+    font-size: 19px;
+  }
+
+  .overview-icon {
+    width: 28px;
+    height: 28px;
+
+    top: 9px;
+    right: 9px;
+  }
+
+  .analytics-card {
+
+    min-height: 235px;
+
+    padding: 14px;
+  }
+
+  .analytics-mini-chart {
+    height: 155px;
+  }
+}

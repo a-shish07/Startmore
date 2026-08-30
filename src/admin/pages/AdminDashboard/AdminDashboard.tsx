@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa";
 
 import "../../styles/admin-dashboard.css";
+import AnalyticsDashboard from "./AnalyticsDashboard";
 
 const API_URL =
   import.meta.env.VITE_API_URL ||
@@ -52,7 +53,9 @@ interface OrderSummary {
   cancelled: number;
 }
 
-const AdminDashboard = () => {
+const AdminDashboard = () => <AnalyticsDashboard />;
+
+const LegacyAdminDashboard = () => {
   const [stats, setStats] =
     useState<DashboardStats>({
       total_products: 0,

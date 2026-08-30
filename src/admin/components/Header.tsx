@@ -237,7 +237,7 @@ const Header = ({
 
         {/* Notification */}
 
-        <button
+        {/* <button
           className="notification-btn"
           aria-label="Notifications"
         >
@@ -246,7 +246,7 @@ const Header = ({
           <span className="notification-count">
             3
           </span>
-        </button>
+        </button> */}
 
 
         {/* Admin Profile */}

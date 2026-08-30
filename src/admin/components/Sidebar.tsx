@@ -382,6 +382,7 @@ import {
   FaSignOutAlt,
   FaRulerCombined,
   FaImages,
+  FaEnvelope,
 } from "react-icons/fa";
 
 import "../styles/admin-sidebar.css";
@@ -581,6 +582,11 @@ const Sidebar = ({
           <span>
             Users
           </span>
+        </NavLink>
+
+        <NavLink to="/admin/abandoned-cart-emails" className="sidebar-link" onClick={closeSidebar}>
+          <FaEnvelope />
+          <span>Abandoned Cart Emails</span>
         </NavLink>
 
 

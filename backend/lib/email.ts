@@ -23,6 +23,13 @@ function escapeHtml(value: string) {
   });
 }
 
+export async function sendAbandonedCartEmail({ customerEmail, subject, message, items }: { customerEmail:string; subject:string; message:string; items:any[] }) {
+  if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
+  const products = items.map((item) => `<li>${escapeHtml(String(item.product?.name || item.name || "Saved item"))} × ${Number(item.quantity || 1)}</li>`).join("");
+  const result = await resend.emails.send({ from: EMAIL_FROM, to: customerEmail, subject, html:`<div style="max-width:600px;margin:auto;padding:32px;background:#fffaf6;color:#2b2530;font-family:Arial,sans-serif"><p style="letter-spacing:1px;color:#5b537f;font-size:12px">SR ARTÉMORE</p><h1 style="font-size:26px">Your cart is waiting</h1><p>${escapeHtml(message)}</p><h3>Saved items</h3><ul>${products}</ul><p style="margin-top:28px">Return to SR Artémore whenever you are ready.</p></div>` });
+  if (result.error) throw new Error(result.error.message || "Resend rejected the reminder"); return result;
+}
+
 export async function sendPasswordResetEmail({
   customerEmail,
   customerName,
