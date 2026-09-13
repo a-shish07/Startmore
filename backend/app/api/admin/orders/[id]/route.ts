@@ -42,6 +42,8 @@ export async function GET(
           o.order_status,
           o.tracking_number,
           o.courier,
+          o.tracking_url,
+          o.tracking_email_sent_at,
           o.created_at,
 
           u.full_name AS customer_name,

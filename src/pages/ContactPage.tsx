@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 function useReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -14,12 +16,29 @@ function useReveal() {
 
 export default function ContactPage() {
   useReveal();
-  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [form, setForm] = useState({ name: "", lastName: "", email: "", phone: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    setError("");
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, name: `${form.name} ${form.lastName}`.trim() }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.message || "Could not send your message.");
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not send your message.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactDetails = [
@@ -53,7 +72,7 @@ export default function ContactPage() {
               <i className="ri-checkbox-circle-line"></i>
               <h2>Message Sent!</h2>
               <p>We've received your inquiry and will get back to you shortly.</p>
-              <button className="btn-primary" onClick={() => setSent(false)}><span>Send Another</span></button>
+              <button className="btn-primary" onClick={() => { setSent(false); setForm({ name: "", lastName: "", email: "", phone: "", subject: "", message: "" }); }}><span>Send Another</span></button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="premium-form">
@@ -65,7 +84,7 @@ export default function ContactPage() {
                 </div>
                 <div className="form-group">
                   <label>Last Name</label>
-                  <input type="text" placeholder="Last name" required />
+                  <input type="text" placeholder="Last name" required value={form.lastName} onChange={e => setForm({...form, lastName: e.target.value})} />
                 </div>
               </div>
               <div className="form-row">
@@ -83,9 +102,11 @@ export default function ContactPage() {
                 <textarea placeholder="Tell us about your inquiry..." required value={form.message} onChange={e => setForm({...form, message: e.target.value})}></textarea>
               </div>
 
+              {error && <p className="contact-form-error" role="alert">{error}</p>}
+
               <div style={{ display: "flex", alignItems: "center", gap: "24px", marginTop: "12px" }}>
-                <button type="submit" className="btn-send-message">
-                  <span>Send Message</span>
+                <button type="submit" className="btn-send-message" disabled={sending}>
+                  <span>{sending ? "Sending…" : "Send Message"}</span>
                 </button>
 
                 <div className="response-time">
@@ -429,6 +450,9 @@ export default function ContactPage() {
           position: relative;
           z-index: 3;
         }
+
+        .btn-send-message:disabled { cursor: wait; opacity: .65; }
+        .contact-form-error { margin: -8px 0 0; color: #a23333; font-size: 13px; }
 
         .response-time {
           display: flex;

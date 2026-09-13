@@ -8,11 +8,13 @@ import {
 
 interface Props {
   clientSecret: string;
-  onSuccess: () => void;
+  onSuccess: (paymentIntentId: string) => Promise<void> | void;
+  onFailure: () => Promise<void> | void;
 }
 
 export default function StripePayment({
   onSuccess,
+  onFailure,
 }: Props) {
 
   const stripe = useStripe();
@@ -61,6 +63,8 @@ export default function StripePayment({
 
       if (result.error) {
 
+        try { await onFailure(); } catch (cleanupError) { console.error("Could not remove incomplete order", cleanupError); }
+
         setError(
           result.error.message ||
             "Payment Failed"
@@ -76,11 +80,13 @@ export default function StripePayment({
           "succeeded"
       ) {
 
-        onSuccess();
+        await onSuccess(result.paymentIntent.id);
 
       }
 
     } catch (err) {
+
+      try { await onFailure(); } catch (cleanupError) { console.error("Could not remove incomplete order", cleanupError); }
 
       setError(
         "Unexpected payment error."

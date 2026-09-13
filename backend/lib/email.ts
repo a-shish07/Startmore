@@ -9,6 +9,12 @@ const EMAIL_FROM =
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
+function ensureEmailConfigured() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY is not configured");
+  }
+}
+
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, (character) => {
     const entities: Record<string, string> = {
@@ -24,7 +30,7 @@ function escapeHtml(value: string) {
 }
 
 export async function sendAbandonedCartEmail({ customerEmail, subject, message, items }: { customerEmail:string; subject:string; message:string; items:any[] }) {
-  if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
+  ensureEmailConfigured();
   const products = items.map((item) => `<li>${escapeHtml(String(item.product?.name || item.name || "Saved item"))} × ${Number(item.quantity || 1)}</li>`).join("");
   const result = await resend.emails.send({ from: EMAIL_FROM, to: customerEmail, subject, html:`<div style="max-width:600px;margin:auto;padding:32px;background:#fffaf6;color:#2b2530;font-family:Arial,sans-serif"><p style="letter-spacing:1px;color:#5b537f;font-size:12px">SR ARTÉMORE</p><h1 style="font-size:26px">Your cart is waiting</h1><p>${escapeHtml(message)}</p><h3>Saved items</h3><ul>${products}</ul><p style="margin-top:28px">Return to SR Artémore whenever you are ready.</p></div>` });
   if (result.error) throw new Error(result.error.message || "Resend rejected the reminder"); return result;
@@ -39,6 +45,7 @@ export async function sendPasswordResetEmail({
   customerName?: string | null;
   resetUrl: string;
 }) {
+  ensureEmailConfigured();
   const greeting = customerName
     ? `Hello ${escapeHtml(customerName)},`
     : "Hello,";
@@ -90,6 +97,7 @@ interface OrderEmailData {
 export async function sendCustomerOrderEmail(
   data: OrderEmailData
 ) {
+  ensureEmailConfigured();
   if (!data.customerEmail) {
     throw new Error("Customer email is missing");
   }
@@ -133,7 +141,7 @@ export async function sendCustomerOrderEmail(
 
             <h2>
               Thank you for your order,
-              ${data.customerName}!
+              ${escapeHtml(data.customerName || "there")}!
             </h2>
 
             <p>
@@ -147,7 +155,7 @@ export async function sendCustomerOrderEmail(
             <hr />
 
             <h3>
-              Order #${data.orderId}
+              Order #${escapeHtml(String(data.orderId))}
             </h3>
 
             <table
@@ -171,11 +179,11 @@ export async function sendCustomerOrderEmail(
                     (item) => `
                       <tr>
                         <td>
-                          ${item.name}
+                          ${escapeHtml(String(item.name))}
                         </td>
 
                         <td align="center">
-                          ${item.quantity}
+                          ${Number(item.quantity)}
                         </td>
 
                         <td align="right">
@@ -242,11 +250,12 @@ export async function sendCustomerOrderEmail(
 export async function sendAdminOrderEmail(
   data: OrderEmailData
 ) {
+  ensureEmailConfigured();
   if (!ADMIN_EMAIL) {
     throw new Error("ADMIN_EMAIL is not configured");
   }
 
-  return await resend.emails.send({
+  const result = await resend.emails.send({
     from: EMAIL_FROM,
     to: ADMIN_EMAIL,
     subject: `New Order Received #${data.orderId}`,
@@ -314,6 +323,12 @@ export async function sendAdminOrderEmail(
       </html>
     `,
   });
+
+  if (result.error) {
+    throw new Error(result.error.message || "Failed to send admin order email");
+  }
+
+  return result;
 }
 
 /* ==========================================
@@ -321,6 +336,7 @@ export async function sendAdminOrderEmail(
 ========================================== */
 
 export async function sendAdminTestEmail() {
+  ensureEmailConfigured();
   if (!ADMIN_EMAIL) {
     throw new Error("ADMIN_EMAIL is not configured");
   }
@@ -352,4 +368,68 @@ export async function sendAdminTestEmail() {
       </html>
     `,
   });
+}
+
+export async function sendContactEmails(data: {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+}) {
+  ensureEmailConfigured();
+  if (!ADMIN_EMAIL) throw new Error("ADMIN_EMAIL is not configured");
+
+  const name = escapeHtml(data.name);
+  const email = escapeHtml(data.email);
+  const phone = escapeHtml(data.phone || "Not provided");
+  const subject = escapeHtml(data.subject);
+  const message = escapeHtml(data.message).replace(/\n/g, "<br />");
+
+  const [customer, admin] = await Promise.all([
+    resend.emails.send({
+      from: EMAIL_FROM,
+      to: data.email,
+      subject: "We received your message — SR Artémore",
+      html: `<main style="max-width:600px;margin:32px auto;padding:40px;background:#fffdf9;color:#261d1b;font-family:Arial,sans-serif"><p style="letter-spacing:2px;font-size:12px;color:#9a7651">SR ARTÉMORE</p><h1 style="font-size:28px">Thank you for getting in touch.</h1><p>Hi ${name}, we have received your message and will reply within 24 hours.</p><div style="margin:28px 0;padding:18px;border-left:3px solid #b28a5d;background:#faf5ed"><strong>${subject}</strong><p style="margin-bottom:0;line-height:1.6">${message}</p></div><p>Warmly,<br />SR Artémore</p></main>`,
+    }),
+    resend.emails.send({
+      from: EMAIL_FROM,
+      to: ADMIN_EMAIL,
+      replyTo: data.email,
+      subject: `Contact enquiry: ${data.subject}`,
+      html: `<main style="max-width:600px;margin:32px auto;padding:32px;background:#fff;color:#261d1b;font-family:Arial,sans-serif"><p style="letter-spacing:2px;font-size:12px;color:#9a7651">SR ARTÉMORE · CONTACT ENQUIRY</p><h1 style="font-size:24px">${subject}</h1><p><strong>From:</strong> ${name} (${email})<br /><strong>Phone:</strong> ${phone}</p><div style="padding:18px;background:#faf5ed;line-height:1.6">${message}</div></main>`,
+    }),
+  ]);
+  if (customer.error) throw new Error(customer.error.message || "Could not send customer confirmation");
+  if (admin.error) throw new Error(admin.error.message || "Could not notify the admin");
+  return { customer, admin };
+}
+
+export async function sendTrackingEmail(data: {
+  customerEmail: string;
+  customerName?: string | null;
+  orderNumber: string;
+  courier: string;
+  trackingNumber: string;
+  trackingUrl?: string | null;
+  note?: string | null;
+}) {
+  ensureEmailConfigured();
+  const customerName = escapeHtml(data.customerName || "there");
+  const courier = escapeHtml(data.courier);
+  const trackingNumber = escapeHtml(data.trackingNumber);
+  const orderNumber = escapeHtml(data.orderNumber);
+  const note = data.note ? `<p style="line-height:1.6">${escapeHtml(data.note)}</p>` : "";
+  const trackingLink = data.trackingUrl
+    ? `<p style="margin:28px 0"><a href="${escapeHtml(data.trackingUrl)}" style="display:inline-block;background:#261d1b;color:#fff;padding:14px 22px;border-radius:6px;text-decoration:none;font-weight:700">Track your delivery</a></p>`
+    : "";
+  const result = await resend.emails.send({
+    from: EMAIL_FROM,
+    to: data.customerEmail,
+    subject: `Your SR Artémore order ${data.orderNumber} is on its way`,
+    html: `<main style="max-width:600px;margin:32px auto;padding:40px;background:#fffdf9;color:#261d1b;font-family:Arial,sans-serif"><p style="letter-spacing:2px;font-size:12px;color:#9a7651">SR ARTÉMORE · DELIVERY UPDATE</p><h1 style="font-size:28px">Your order is on its way.</h1><p>Hi ${customerName}, your order <strong>${orderNumber}</strong> has been handed to ${courier}.</p><div style="margin:28px 0;padding:22px;border:1px solid #e7dacb;border-radius:10px;background:#fff"><p style="margin:0 0 8px;font-size:12px;letter-spacing:1px;color:#806042">TRACKING NUMBER</p><p style="margin:0;font-size:20px;font-weight:700;letter-spacing:1px">${trackingNumber}</p><p style="margin:16px 0 0;color:#665b54">Delivery partner: <strong>${courier}</strong></p></div>${trackingLink}${note}<p style="color:#665b54;line-height:1.6">If the tracking page has not updated yet, please allow the carrier a little time to scan the parcel.</p></main>`,
+  });
+  if (result.error) throw new Error(result.error.message || "Failed to send tracking email");
+  return result;
 }

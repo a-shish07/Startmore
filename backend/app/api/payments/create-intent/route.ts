@@ -3,6 +3,7 @@ import stripe from "@/lib/stripe";
 import pool from "@/lib/db";
 
 export async function POST(req: NextRequest) {
+  let orderId: number | null = null;
   try {
     const body = await req.json();
 
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
         { status: 404 }
       );
     }
+    orderId = Number(order_id);
 
     const amount = Number(orderResult.rows[0].total);
 
@@ -77,6 +79,22 @@ const paymentIntent =
   } catch (error) {
 
     console.error("Stripe Error:", error);
+
+    if (orderId) {
+      const client = await pool.connect();
+      try {
+        await client.query("BEGIN");
+        const items = await client.query("SELECT product_id, quantity FROM order_items WHERE order_id=$1", [orderId]);
+        for (const item of items.rows) await client.query("UPDATE products SET stock=stock+$1 WHERE id=$2", [item.quantity, item.product_id]);
+        await client.query("DELETE FROM orders WHERE id=$1 AND payment_status='Pending'", [orderId]);
+        await client.query("COMMIT");
+      } catch (cleanupError) {
+        await client.query("ROLLBACK");
+        console.error("Could not clean up incomplete order:", cleanupError);
+      } finally {
+        client.release();
+      }
+    }
 
     return NextResponse.json(
       {

@@ -87,7 +87,7 @@ const INITIAL_ADDRESSES = [
   { id: 2, name: "Priya Sharma", addressLine: "12 Anna Salai",             city: "Chennai",   state: "Tamil Nadu", zip: "600002", phone: "+91 91234 56789" },
 ];
 const EMPTY_FORM = { name: "", phone: "", addressLine: "", city: "", state: "", zip: "" };
-const NAV_LINKS  = ["Home", "Products", "About Us", "Contact"];
+const NAV_LINKS  = ["Home", "Products", "OUR STORY", "Contact"];
 const SIDEBAR_NAV = [
   { id: "overview",  label: "Overview",        icon: I.overview  },
   { id: "orders",    label: "Orders",           icon: I.orders    },

@@ -56,6 +56,7 @@ import CustomerDetails from "./admin/pages/Customers/CustomerDetails";
 import UserList from "./admin/pages/Users/UserList";
 import UserDetails from "./admin/pages/Users/UserDetails";
 import AbandonedCartEmails from "./admin/pages/AbandonedCartEmails";
+import Blog from "./pages/Blog";
 
 
 type Page =
@@ -240,13 +241,10 @@ function AppInner() {
 
 
           {/* Policy & Info Pages */}
-          <Route path="/blog" element={
-            <PolicyPage 
-              title="Blog & News" 
-              subtitle="Luxury Trends" 
-              content="Stay tuned for our upcoming blog featuring nail care tips, the latest Aurora chrome trends, and behind-the-scenes stories from our handcrafted studio in India." 
-            />
-          } />
+          <Route
+  path="/blog"
+  element={<Blog />}
+/>
           <Route path="/careers" element={
             <PolicyPage 
               title="Careers" 
@@ -268,13 +266,15 @@ function AppInner() {
               content="We offer Pan-India delivery. Every set is handcrafted to order, taking 3-5 business days for production, followed by 2-3 days for shipping." 
             />
           } />
-          <Route path="/privacy" element={
-            <PolicyPage 
-              title="Privacy Policy" 
-              subtitle="Your Data" 
-              content="Your privacy is of utmost importance to us. We use luxury-grade encryption to ensure your personal data and payment information are always secure." 
-            />
-          } />
+          <Route
+  path="/privacy"
+  element={
+    <PolicyPage
+      title="Privacy Policy"
+      subtitle="Your Data"
+    />
+  }
+/>
           <Route path="/terms" element={
             <PolicyPage 
               title="Terms & Conditions" 

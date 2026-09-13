@@ -80,7 +80,7 @@ export default function Header({
     },
     {
       key: "about",
-      label: "About Us",
+      label: "Our Story",
     },
     {
       key: "contact",
@@ -427,6 +427,22 @@ export default function Header({
       Login
     </button>
   )}
+  {/* Mobile Login / Profile Icon */}
+<button
+  className="icon-btn mobile-profile-btn"
+  onClick={() =>
+    handleNav(isAuthenticated ? "dashboard" : "login")
+  }
+  aria-label={isAuthenticated ? "Profile" : "Login"}
+>
+  <i
+    className={
+      isAuthenticated
+        ? "ri-user-fill"
+        : "ri-user-line"
+    }
+  />
+</button>
             <button
               onClick={() =>
                 handleNav(

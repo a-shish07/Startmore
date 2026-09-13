@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
+import { sendAdminOrderEmail, sendCustomerOrderEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   const client = await pool.connect();
@@ -62,7 +63,7 @@ if (
 
 const userResult = await client.query(
   `
-  SELECT id
+  SELECT id, full_name, email
   FROM users
   WHERE id = $1
   `,
@@ -202,6 +203,7 @@ const calculatedTotal =
 
 const orderNumber =
   "ORD-" + Date.now();
+const isCod = String(payment_method).toUpperCase() === "COD";
 
 // ==========================
 // Insert Order
@@ -237,7 +239,7 @@ const orderResult = await client.query(
   calculatedDiscount,
   calculatedTotal,
   payment_method,
-  "Pending",
+  isCod ? "Cash on Delivery" : "Pending",
   "Placed",
 ]
 );
@@ -246,11 +248,14 @@ const orderId = orderResult.rows[0].id;
 // Insert Order Items
 // ==========================
 
+const emailItems: { name: string; quantity: number; price: number }[] = [];
+
 for (const item of items) {
 
   const productResult = await client.query(
     `
     SELECT
+      name,
       price,
       discount_price
     FROM products
@@ -265,6 +270,8 @@ for (const item of items) {
   const finalPrice = Number(
     product.discount_price || product.price
   );
+
+  emailItems.push({ name: product.name || "Product", quantity: Number(item.quantity), price: finalPrice });
 
   await client.query(
     `
@@ -311,6 +318,30 @@ for (const item of items) {
 }
 await client.query("COMMIT");
 
+// COD has no Stripe success event. Send the two order confirmations immediately
+// after its database transaction commits; an email failure never loses a valid COD order.
+if (isCod) {
+  const emailData = {
+    orderId: orderNumber,
+    customerName: address.full_name || userResult.rows[0].full_name || "Customer",
+    customerEmail: userResult.rows[0].email,
+    totalAmount: calculatedTotal,
+    items: emailItems,
+  };
+  try {
+    await sendCustomerOrderEmail(emailData);
+    await pool.query("UPDATE orders SET customer_email_sent=TRUE WHERE id=$1", [orderId]);
+  } catch (emailError) {
+    console.error("COD customer email failed:", emailError);
+  }
+  try {
+    await sendAdminOrderEmail(emailData);
+    await pool.query("UPDATE orders SET admin_email_sent=TRUE WHERE id=$1", [orderId]);
+  } catch (emailError) {
+    console.error("COD admin email failed:", emailError);
+  }
+}
+
 return NextResponse.json({
   success: true,
   message: "Order Created Successfully",
@@ -321,7 +352,7 @@ return NextResponse.json({
     shipping: calculatedShipping,
     discount: calculatedDiscount,
     total: calculatedTotal,
-    payment_status: "Pending",
+    payment_status: isCod ? "Cash on Delivery" : "Pending",
     order_status: "Placed",
   },
 });

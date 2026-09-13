@@ -38,6 +38,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
   // STRIPE
   // ==========================
   const [clientSecret, setClientSecret] = useState("");
+  const [paymentIntentId, setPaymentIntentId] = useState("");
 
   // ==========================
   // ORDER
@@ -186,6 +187,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
     }
 
     setClientSecret(data.clientSecret);
+    setPaymentIntentId(data.paymentIntentId);
   };
 
   // ==========================
@@ -201,8 +203,13 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
 
   try {
     setLoading(true);
+    if (["paypal", "klarna"].includes(payMethod)) {
+      throw new Error(`${payMethod === "paypal" ? "PayPal" : "Klarna"} is not available yet. Please select Card or Cash on Delivery.`);
+    }
     const id = await createPendingOrder();
-    await createPaymentIntent(id);
+    if (payMethod !== "cod") {
+      await createPaymentIntent(id);
+    }
     setStep(3);
   } catch (err: any) {
     alert(err.message);
@@ -211,10 +218,28 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
   }
 };
 
+  const cancelIncompletePayment = async () => {
+    if (!paymentIntentId) return;
+    await fetch(`${API_URL}/api/payments/cancel-pending`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paymentIntentId }),
+    });
+  };
+
   // ==========================
   // PAYMENT SUCCESS
   // ==========================
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = async (paymentIntentId: string) => {
+    const response = await fetch(`${API_URL}/api/payments/confirm`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paymentIntentId }),
+    });
+    const data = await response.json();
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "We could not confirm your payment. Please contact support before trying again.");
+    }
     clearCart();
     localStorage.setItem("lastOrderId", String(orderId));
     localStorage.setItem("lastOrderNumber", orderNumber);
@@ -605,6 +630,7 @@ export default function CheckoutPage({ onNavigate }: CheckoutPageProps) {
         <StripePayment
           clientSecret={clientSecret}
           onSuccess={handlePaymentSuccess}
+          onFailure={cancelIncompletePayment}
         />
 
       </Elements>

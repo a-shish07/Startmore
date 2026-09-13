@@ -47,7 +47,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
           <ul>
             <li><a onClick={() => onNavigate("about")}>Our Story & Vision</a></li>
-            <li><a onClick={() => onNavigate("about")}>About Us</a></li>
+            {/* <li><a onClick={() => onNavigate("about")}>Our Story</a></li> */}
             <li><a onClick={() => onNavigate("contact")}>Contact Us</a></li>
             <li><a onClick={() => onNavigate("blog")}>Blog & News</a></li>
             <li><a onClick={() => onNavigate("careers")}>Careers</a></li>
@@ -74,7 +74,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       </div>
 
       <div className="footer-bottom">
-        <p className="copyright-text">© 2026 SR ARTÉMORE. All rights reserved. Made with ✦ in India.</p>
+        <p className="copyright-text">© 2026 SR ARTÉMORE. All rights reserved. Made with ✦</p>
         <div className="payment-icons">
           <span>VISA</span><span>MC</span><span>UPI</span><span>COD</span><span>PAYTM</span>
         </div>

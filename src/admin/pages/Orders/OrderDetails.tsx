@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import {
   FaArrowLeft,
   FaFilePdf,
+  FaPaperPlane,
 } from "react-icons/fa";
 
 import "../../styles/admin-order-details.css";
@@ -38,6 +39,8 @@ interface Order {
 
   tracking_number: string | null;
   courier: string | null;
+  tracking_url?: string | null;
+  tracking_email_sent_at?: string | null;
 
   created_at: string;
 
@@ -68,6 +71,9 @@ const OrderDetails = () => {
 
   const [error, setError] =
     useState("");
+  const [tracking, setTracking] = useState({ courier: "", trackingNumber: "", trackingUrl: "", note: "" });
+  const [trackingStatus, setTrackingStatus] = useState("");
+  const [sendingTracking, setSendingTracking] = useState(false);
 
   /* ==========================================
      FETCH ORDER DETAILS
@@ -98,6 +104,7 @@ const OrderDetails = () => {
         }
 
         setOrder(data.order);
+        setTracking({ courier: data.order.courier || "", trackingNumber: data.order.tracking_number || "", trackingUrl: data.order.tracking_url || "", note: "" });
       } catch (err) {
         console.error(
           "Order Details Error:",
@@ -171,6 +178,29 @@ const OrderDetails = () => {
           ? err.message
           : "Failed to download shipping label"
       );
+    }
+  };
+
+  const sendTracking = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!id) return;
+    setSendingTracking(true);
+    setTrackingStatus("");
+    try {
+      const token = localStorage.getItem("adminToken");
+      const response = await fetch(`${API_URL}/api/admin/orders/${id}/tracking`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token || ""}` },
+        body: JSON.stringify(tracking),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.message || "Could not send tracking email.");
+      setTrackingStatus(data.message);
+      setOrder((current) => current ? { ...current, courier: tracking.courier, tracking_number: tracking.trackingNumber, tracking_url: tracking.trackingUrl || null, tracking_email_sent_at: new Date().toISOString(), order_status: current.order_status === "Placed" || current.order_status === "Processing" ? "Shipped" : current.order_status } : current);
+    } catch (err) {
+      setTrackingStatus(err instanceof Error ? err.message : "Could not send tracking email.");
+    } finally {
+      setSendingTracking(false);
     }
   };
 
@@ -405,6 +435,25 @@ const OrderDetails = () => {
         </p>
 
       </div>
+
+      <section className="details-card tracking-card">
+        <div className="tracking-card-head">
+          <div>
+            <p className="tracking-eyebrow">FULFILMENT</p>
+            <h3>Send delivery tracking</h3>
+            <p>The customer receives a polished delivery email with the tracking ID and your carrier’s website link.</p>
+          </div>
+          <FaPaperPlane aria-hidden="true" />
+        </div>
+        <form className="tracking-form" onSubmit={sendTracking}>
+          <label>Delivery partner<input required value={tracking.courier} maxLength={100} placeholder="e.g. Royal Mail" onChange={(event) => setTracking({ ...tracking, courier: event.target.value })} /></label>
+          <label>Tracking ID<input required value={tracking.trackingNumber} maxLength={160} placeholder="e.g. RM123456789GB" onChange={(event) => setTracking({ ...tracking, trackingNumber: event.target.value })} /></label>
+          <label className="tracking-wide">Carrier tracking website<input type="url" value={tracking.trackingUrl} placeholder="https://carrier.example/track/..." onChange={(event) => setTracking({ ...tracking, trackingUrl: event.target.value })} /></label>
+          <label className="tracking-wide">Optional customer note<textarea value={tracking.note} maxLength={1000} placeholder="A short note to include in the delivery email" onChange={(event) => setTracking({ ...tracking, note: event.target.value })} /></label>
+          <div className="tracking-actions"><div>{order.tracking_email_sent_at ? `Last sent ${new Date(order.tracking_email_sent_at).toLocaleString()}` : "The email is only sent when you confirm below."}</div><button className="pdf-btn-large" disabled={sendingTracking} type="submit"><FaPaperPlane />{sendingTracking ? "Sending…" : "Save & email tracking"}</button></div>
+        </form>
+        {trackingStatus && <p className={trackingStatus.includes("sent") ? "tracking-success" : "tracking-error"} role="status">{trackingStatus}</p>}
+      </section>
 
       {/* ======================================
           ORDER ITEMS

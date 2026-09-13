@@ -197,6 +197,22 @@
   color: #222;
 }
 
+.tracking-card { border-color: #e5d8c8; background: linear-gradient(135deg, #fff 0%, #fffbf6 100%); }
+.tracking-card-head { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; }
+.tracking-card-head > svg { color:#a97842; font-size:22px; margin:4px; }
+.tracking-eyebrow { margin:0 0 5px !important; color:#9a7040 !important; font-size:10px !important; font-weight:700; letter-spacing:1.5px; }
+.tracking-form { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:14px; margin-top:20px; }
+.tracking-form label { display:flex; flex-direction:column; gap:7px; color:#4d4035; font-size:12px; font-weight:600; }
+.tracking-form input, .tracking-form textarea { width:100%; box-sizing:border-box; border:1px solid #ded4c9; border-radius:7px; padding:11px 12px; font:inherit; font-weight:400; color:#2b2520; background:#fff; }
+.tracking-form textarea { min-height:76px; resize:vertical; }
+.tracking-form input:focus, .tracking-form textarea:focus { outline:2px solid #d5b68e; outline-offset:1px; border-color:#b88650; }
+.tracking-wide { grid-column:1 / -1; }
+.tracking-actions { grid-column:1 / -1; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#76695f; font-size:12px; }
+.tracking-actions .pdf-btn-large:disabled { cursor:wait; opacity:.65; }
+.tracking-success, .tracking-error { margin:16px 0 0 !important; padding:10px 12px; border-radius:6px; }
+.tracking-success { background:#edf8ef; color:#227034 !important; }
+.tracking-error { background:#fff0f0; color:#a12b2b !important; }
+
 
 /* ==========================================
    ORDER ITEMS SECTION
@@ -496,6 +512,10 @@
   .details-card p {
     font-size: 12px;
   }
+
+  .tracking-form { grid-template-columns:1fr; }
+  .tracking-actions { align-items:stretch; flex-direction:column; }
+  .tracking-actions .pdf-btn-large { width:100%; }
 
 
   /* ITEMS TABLE */
