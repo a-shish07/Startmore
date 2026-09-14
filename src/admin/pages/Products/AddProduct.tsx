@@ -415,7 +415,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Category</label>
+      <label>Category*</label>
 
       <select
         value={categoryId}
@@ -448,7 +448,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Shape</label>
+      <label>Shape*</label>
 
       <select
         value={shapeId}
@@ -528,7 +528,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Product Name</label>
+      <label>Product Name*</label>
 
       <input
         type="text"
@@ -545,7 +545,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Slug</label>
+      <label>Slug (Auto-generated)</label>
 
       <input
         type="text"
@@ -575,7 +575,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Price</label>
+      <label>Price*</label>
 
       <input
         type="number"
@@ -608,7 +608,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Shipping Cost (per item)</label>
+      <label>Shipping Cost* (per item)</label>
 
       <input
         type="number"
@@ -623,7 +623,7 @@ const fetchSizes = async () => {
 
     <div className="form-group">
 
-      <label>Stock</label>
+      <label>Stock*</label>
 
       <input
         type="number"

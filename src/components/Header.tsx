@@ -111,7 +111,7 @@ export default function Header({
           bottom: 0,
           zIndex: 99999,
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "flex-start",
         }}
       >
         <div
@@ -330,7 +330,7 @@ export default function Header({
             {`
               @keyframes slidePanel{
                 from{
-                  transform:translateX(100%);
+                  transform:translateX(-100%);
                 }
                 to{
                   transform:translateX(0);
@@ -400,117 +400,132 @@ export default function Header({
           </ul>
 
           <div className="nav-icons">
-            {isAuthenticated ? (
-              <>
-      <button
-        className="icon-btn profile-btn-desktop"
-        onClick={() => handleNav("dashboard")}
-      >
-        Dashboard
-      </button>
 
-      <button
-        className="icon-btn profile-btn-desktop"
-        onClick={() => {
-          logout();
-          handleNav("home");
-        }}
-      >
-        Logout
-      </button>
-    </>
-  ) : (
+  {/* LEFT SIDE */}
+  <div className="mobile-left-icons">
+
+    {/* Menu */}
     <button
-      className="icon-btn profile-btn-desktop"
-      onClick={() => handleNav("login")}
+      className="menu-toggle icon-btn"
+      onClick={() => setMenuOpen(!menuOpen)}
+      aria-label="Menu"
     >
-      Login
+      <i
+        className={
+          menuOpen
+            ? "ri-close-line"
+            : "ri-menu-line"
+        }
+      />
     </button>
-  )}
-  {/* Mobile Login / Profile Icon */}
-<button
-  className="icon-btn mobile-profile-btn"
-  onClick={() =>
-    handleNav(isAuthenticated ? "dashboard" : "login")
-  }
-  aria-label={isAuthenticated ? "Profile" : "Login"}
->
-  <i
-    className={
-      isAuthenticated
-        ? "ri-user-fill"
-        : "ri-user-line"
-    }
-  />
-</button>
-            <button
-              onClick={() =>
-                handleNav(
-                  "favorites"
-                )
-              }
-              className="icon-btn"
-            >
-              <i
-                className={
-                  favorites.length >
-                    0
-                    ? "ri-heart-3-fill"
-                    : "ri-heart-3-line"
-                }
-              />
 
-              {favorites.length >
-                0 && (
-                  <span className="fav-badge">
-                    {
-                      favorites.length
-                    }
-                  </span>
-                )}
-            </button>
+    {/* Favorites */}
+    <button
+      onClick={() => handleNav("favorites")}
+      className="icon-btn favorite-btn"
+      aria-label="Favorites"
+    >
+      <i
+        className={
+          favorites.length > 0
+            ? "ri-heart-3-fill"
+            : "ri-heart-3-line"
+        }
+      />
 
-            <button
-              className={`icon-btn ${currentPage ===
-                  "cart"
-                  ? "active"
-                  : ""
-                }`}
-              onClick={() =>
-                handleNav(
-                  "cart"
-                )
-              }
-            >
-              <i className="ri-shopping-cart-fill" />
+      {favorites.length > 0 && (
+        <span className="fav-badge">
+          {favorites.length}
+        </span>
+      )}
+    </button>
 
-              {totalCount >
-                0 && (
-                  <span className="cart-badge">
-                    {
-                      totalCount
-                    }
-                  </span>
-                )}
-            </button>
+  </div>
 
-            <button
-              className="menu-toggle icon-btn"
-              onClick={() =>
-                setMenuOpen(
-                  !menuOpen
-                )
-              }
-            >
-              <i
-                className={
-                  menuOpen
-                    ? "ri-close-line"
-                    : "ri-menu-line"
-                }
-              />
-            </button>
-          </div>
+
+  {/* DESKTOP PROFILE BUTTONS */}
+  <div className="desktop-profile-buttons">
+    {isAuthenticated ? (
+      <>
+        <button
+          className="icon-btn profile-btn-desktop"
+          onClick={() => handleNav("dashboard")}
+        >
+          Dashboard
+        </button>
+
+        <button
+          className="icon-btn profile-btn-desktop"
+          onClick={() => {
+            logout();
+            handleNav("home");
+          }}
+        >
+          Logout
+        </button>
+      </>
+    ) : (
+      <button
+        className="icon-btn profile-btn-desktop"
+        onClick={() => handleNav("login")}
+      >
+        Login
+      </button>
+    )}
+  </div>
+
+
+  {/* RIGHT SIDE - MOBILE */}
+  <div className="mobile-right-icons">
+
+    {/* Profile */}
+    <button
+      className="icon-btn mobile-profile-btn"
+      onClick={() =>
+        handleNav(
+          isAuthenticated
+            ? "dashboard"
+            : "login"
+        )
+      }
+      aria-label={
+        isAuthenticated
+          ? "Profile"
+          : "Login"
+      }
+    >
+      <i
+        className={
+          isAuthenticated
+            ? "ri-user-fill"
+            : "ri-user-line"
+        }
+      />
+    </button>
+
+      
+    {/* Cart */}
+    <button
+      className={`icon-btn cart-btn ${
+        currentPage === "cart"
+          ? "active"
+          : ""
+      }`}
+      onClick={() => handleNav("cart")}
+      aria-label="Cart"
+    >
+      <i className="ri-shopping-cart-fill" />
+
+      {totalCount > 0 && (
+        <span className="cart-badge">
+          {totalCount}
+        </span>
+      )}
+    </button>
+
+  </div>
+
+</div>
         </div>
       </nav>
 

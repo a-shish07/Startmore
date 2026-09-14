@@ -212,7 +212,7 @@ nav.scrolled {
   margin: 0;
 }
 
-.logo-wrap {
+nav .logo-wrap {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -3532,50 +3532,7 @@ textarea {
     font-size: 32px;
   }
 
-  /* MOBILE NAV FIX */
-  nav {
-    padding: 0 16px;
-    height: 72px;
-  }
-
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-    width: 100%;
-  }
-
-  .logo-wrap {
-    margin-left: 0;
-    display: flex;
-    align-items: center;
-    order: 1;
-  }
-
-  .logo-svg {
-    width: auto !important;
-    height: 64px !important;
-    object-fit: contain;
-  }
-
-  .nav-icons {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-right: 0;
-    order: 2;
-    margin-left: auto;
-    margin-right: 12px;
-  }
-
-  .menu-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    order: 3;
-  }
-
+  
   /* Elegant Mobile Menu */
   .mobile-menu {
     top: 0;
@@ -3748,7 +3705,6 @@ textarea {
 }
 
 .nav-icons .icon-btn {
-  position: relative !important;
   padding: 8px;
 }
 
@@ -4963,11 +4919,11 @@ textarea {
   .footer-brand .logo-wrap {
     order: -1 !important;
   }
-  .footer-logo-img {
+   footer .footer-logo-img {
     width: auto !important;
-    height: 3.5rem !important;
+    height: 6.5rem !important;
     object-fit: contain !important;
-    margin: 0 auto 20px auto;
+    /* margin: 0 auto 20px auto; */
   }
   .footer-brand-desc {
     text-align: center !important;
@@ -7083,4 +7039,240 @@ nav.scrolled .mobile-nav-overlay {
   }
 
 }
+/* =========================================
+   FINAL MOBILE NAVBAR
+   ========================================= */
 
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    height: 72px !important;
+    padding: 0 16px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+  }
+
+
+  /* NAV INNER */
+  .nav-inner {
+    position: relative !important;
+    width: 100% !important;
+    height: 72px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+
+  /* =====================================
+     CENTER LOGO
+     ===================================== */
+
+  nav .logo-wrap {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 50% !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    width: auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    z-index: 5 !important;
+  }
+
+  nav .logo-svg {
+    width: auto !important;
+    height: 88px !important;
+
+    max-width: 125px !important;
+
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+
+  /* =====================================
+     ICON CONTAINER
+     ===================================== */
+
+  .nav-icons {
+    position: absolute !important;
+
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    height: 72px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    z-index: 10 !important;
+  }
+
+
+  /* =====================================
+     LEFT SIDE
+     MENU + FAVORITES
+     ===================================== */
+
+  .mobile-left-icons {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    height: 72px !important;
+  }
+
+
+  /* =====================================
+     RIGHT SIDE
+     PROFILE + CART
+     ===================================== */
+
+  .mobile-right-icons {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    height: 72px !important;
+  }
+
+
+  /* =====================================
+     ICON BUTTONS
+     ===================================== */
+
+  .mobile-left-icons .icon-btn,
+  .mobile-right-icons .icon-btn {
+
+    position: relative !important;
+
+    width: 38px !important;
+    height: 38px !important;
+
+    min-width: 38px !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: none !important;
+    background: transparent !important;
+
+    color: #222 !important;
+
+    transform: none !important;
+  }
+
+
+  .mobile-left-icons .icon-btn i,
+  .mobile-right-icons .icon-btn i {
+
+    display: inline-block !important;
+
+    font-size: 24px !important;
+    line-height: 1 !important;
+
+    color: #222 !important;
+  }
+
+
+  /* MENU */
+  .menu-toggle {
+    display: flex !important;
+  }
+
+
+  /* FAVORITES */
+  .favorite-btn {
+    display: flex !important;
+  }
+
+
+  /* PROFILE */
+  .mobile-profile-btn {
+    display: flex !important;
+  }
+
+
+  /* CART */
+  .cart-btn {
+    display: flex !important;
+  }
+
+
+  /* =====================================
+     DESKTOP ITEMS
+     ===================================== */
+
+  .desktop-menu {
+    display: none !important;
+  }
+
+  .desktop-profile-buttons {
+    display: none !important;
+  }
+
+  .profile-btn-desktop {
+    display: none !important;
+  }
+
+
+  /* =====================================
+     BADGES
+     ===================================== */
+
+  .fav-badge,
+  .cart-badge {
+    position: absolute !important;
+
+    top: -3px !important;
+    right: -4px !important;
+
+    z-index: 20 !important;
+  }
+}
+@media (max-width: 768px) {
+  nav .logo-wrap {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+  }
+
+  nav .logo-svg {
+    pointer-events: none !important;
+  }
+}
+
+@media(min-width: 769px) {
+  .mobile-right-icons {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    height: 72px !important;
+  }
+}
